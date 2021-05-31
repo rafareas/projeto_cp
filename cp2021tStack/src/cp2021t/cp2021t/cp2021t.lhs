@@ -350,6 +350,7 @@ inExpAr = either (const X) num_ops where
   ops     = either bin (uncurry Un)
   bin(op, (a, b)) = Bin op a b
 
+baseExpAr' g f = baseExpAr id g id f f id f
 baseExpAr f g h j k l z = f -|- (g -|- (h >< (j >< k) -|- l >< z))
 \end{code}
 
@@ -1016,9 +1017,15 @@ ad v = p2 . cataExpAr (ad_gen v)
 Definir:
 
 \begin{code}
-outExpAr = undefined 
+outExpAr = undefined
+--outExpAr x = i1 x  -- tentar  outExpAr x = i1 x 
+--outExpAr(N x) = i1(i2 x) 
+--outExpAr(Bin op a b) =  i2(i2(i1(op,(a,b))))
+--outExpAr (Un op a) = i2(i2(i2(op,a)))
+
 ---
-recExpAr = undefined
+
+recExpAr x = baseExpAr' id x
 ---
 g_eval_exp = undefined
 ---
