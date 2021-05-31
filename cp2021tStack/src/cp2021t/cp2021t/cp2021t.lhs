@@ -1047,9 +1047,10 @@ ad_gen = undefined
 \subsection*{Problema 2}
 Definir
 \begin{code}
-loop = undefined
-inic = undefined
-prj = undefined
+loop (c,h) = ((div (4*h +2) (h+2)) * c , 1 + h) 
+inic = (1,0)
+prj = p1
+
 \end{code}
 por forma a que
 \begin{code}
