@@ -1047,14 +1047,17 @@ ad_gen = undefined
 \subsection*{Problema 2}
 Definir
 \begin{code}
-loop (c,h) = ((div (4*h +2) (h+2)) * c , 1 + h) 
+loop (c,h) = ((div(((4*h)+2)* c) (h+2)) , add(1,h)) 
+
 inic = (1,0)
 prj = p1
 
 \end{code}
 por forma a que
 \begin{code}
+
 cat = prj . (for loop inic)
+
 \end{code}
 seja a função pretendida.
 \textbf{NB}: usar divisão inteira.
@@ -1083,7 +1086,12 @@ avg = p1.avg_aux
 \end{code}
 
 \begin{code}
-avg_aux = undefined
+
+alfa (a,(avg,l)) = (div(a+(l * avg)) (add(l,1)))
+avg_aux = cataList(either (split id (const 1)) (split (alfa) (succ.p2.p2))) 
+                                    
+
+
 \end{code}
 Solução para árvores de tipo \LTree:
 \begin{code}
