@@ -191,6 +191,7 @@ nil = const []
 
 cons = uncurry (:)
 
+add :: (Integer, Integer) -> Integer
 add = uncurry (+)
 
 mul = uncurry (*)

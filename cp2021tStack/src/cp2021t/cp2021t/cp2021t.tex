@@ -309,9 +309,9 @@
 \\\hline
 a90707 & Vitor Lelis Noronha Leite	
 \\
-a22222 & Nome2 (preencher)	
+a90614 & Pedro Aquino	
 \\
-a33333 & Nome3 (preencher)	
+a86817 & Rafael dos Anjos	
 \end{tabular}
 \end{center}
 
@@ -369,9 +369,9 @@ o ``kit'' básico, escrito em \Haskell, para realizar o trabalho. Basta executar
 \noindent Abra o ficheiro \texttt{cp2021t.lhs} no seu editor de texto preferido
 e verifique que assim é: todo o texto que se encontra dentro do ambiente
 \begin{quote}\small\tt
-\text{\tt \char92{}begin\char123{}code\char125{}}
+\text{\ttfamily \char92{}begin\char123{}code\char125{}}
 \\ ... \\
-\text{\tt \char92{}end\char123{}code\char125{}}
+\text{\ttfamily \char92{}end\char123{}code\char125{}}
 \end{quote}
 é seleccionado pelo \GHCi\ para ser executado.
 
@@ -403,15 +403,15 @@ geração de gráficos 2D:
     $ cabal install QuickCheck gloss --lib
 \end{Verbatim}
 Para testar uma propriedade \QuickCheck~\ensuremath{\Varid{prop}}, basta invocá-la com o comando:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~~~~~\char62{}~quickCheck~prop\\
-\tt ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~100~tests\char46{}
+\ttfamily ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~100~tests\char46{}
 \end{tabbing}
 Pode-se ainda controlar o número de casos de teste e sua complexidade,
 como o seguinte exemplo mostra:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~~~~~\char62{}~quickCheckWith~stdArgs~\char123{}~maxSuccess~\char61{}~200\char44{}~maxSize~\char61{}~10~\char125{}~prop\\
-\tt ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~200~tests\char46{}
+\ttfamily ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~200~tests\char46{}
 \end{tabbing}
 Qualquer programador tem, na vida real, de ler e analisar (muito!) código
 escrito por outros. No anexo \ref{sec:codigo} disponibiliza-se algum
@@ -430,7 +430,7 @@ Um projeto criado com o Stack possui uma estrutura de pastas muito específica:
 \end{itemize}
 
 Pode aceder ao \GHCi\ utilizando o comando:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~stack~ghci
 \end{tabbing}
 
@@ -548,6 +548,8 @@ designa \ensuremath{\Varid{x}\mathbin{+}\mathrm{10}} na notação matemática ha
 \>[B]{}\hsindent{3}{}\<[3]%
 \>[3]{}\Varid{bin}\;(\Varid{op},(\Varid{a},\Varid{b}))\mathrel{=}\Conid{Bin}\;\Varid{op}\;\Varid{a}\;\Varid{b}{}\<[E]%
 \\[\blanklineskip]%
+\>[B]{}\Varid{baseExpAr'}\;\Varid{g}\;\Varid{f}\mathrel{=}\Varid{baseExpAr}\;\Varid{id}\;\Varid{g}\;\Varid{id}\;\Varid{f}\;\Varid{f}\;\Varid{id}\;\Varid{f}{}\<[E]%
+\\
 \>[B]{}\Varid{baseExpAr}\;\Varid{f}\;\Varid{g}\;\Varid{h}\;\Varid{j}\;\Varid{k}\;\Varid{l}\;\Varid{z}\mathrel{=}\Varid{f}+(\Varid{g}+(\Varid{h}\times(\Varid{j}\times\Varid{k})+\Varid{l}\times\Varid{z})){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
@@ -1040,7 +1042,7 @@ a menos de um erro de 0.1 milésimas:
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{4}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{prop\char95 avg}\mathbin{::}\Conid{Ord}\;\Varid{a}\Rightarrow [\mskip1.5mu \Varid{a}\mskip1.5mu]\to \Conid{Property}{}\<[E]%
+\>[B]{}\Varid{prop\char95 avg}\mathbin{::}[\mskip1.5mu \Conid{Double}\mskip1.5mu]\to \Conid{Property}{}\<[E]%
 \\
 \>[B]{}\Varid{prop\char95 avg}\mathrel{=}\Varid{nonempty}\Rightarrow\Varid{diff}\leq\underline{\mathrm{0.000001}}\;\mathbf{where}{}\<[E]%
 \\
@@ -1059,9 +1061,9 @@ a menos de um erro de 0.1 milésimas:
 \Problema	(\textbf{NB}: Esta questão é \textbf{opcional} e funciona como \textbf{valorização} apenas para os alunos que desejarem fazê-la.) 
 
 \vskip 1em \noindent
-Existem muitas linguagens funcionais para além do \Haskell, que é a linguagem usada neste trabalho prático. Uma delas é o \Fsharp\ da Microsoft. Na directoria \text{\tt fsharp} encontram-se os módulos \Cp, \Nat\ e \LTree\ codificados em \Fsharp. O que se pede é a biblioteca \BTree\ escrita na mesma linguagem.
+Existem muitas linguagens funcionais para além do \Haskell, que é a linguagem usada neste trabalho prático. Uma delas é o \Fsharp\ da Microsoft. Na directoria \text{\ttfamily fsharp} encontram-se os módulos \Cp, \Nat\ e \LTree\ codificados em \Fsharp. O que se pede é a biblioteca \BTree\ escrita na mesma linguagem.
 
-Modo de execução: o código que tiverem produzido nesta pergunta deve ser colocado entre o \text{\tt \char92{}begin\char123{}verbatim\char125{}} e o \text{\tt \char92{}end\char123{}verbatim\char125{}} da correspondente parte do anexo \ref{sec:resolucao}. Para além disso, os grupos podem demonstrar o código na oral.
+Modo de execução: o código que tiverem produzido nesta pergunta deve ser colocado entre o \text{\ttfamily \char92{}begin\char123{}verbatim\char125{}} e o \text{\ttfamily \char92{}end\char123{}verbatim\char125{}} da correspondente parte do anexo \ref{sec:resolucao}. Para além disso, os grupos podem demonstrar o código na oral.
 
 \newpage
 
@@ -1397,7 +1399,7 @@ Propriedades e \emph{main}:
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{runBezier}\mathbin{::}\fun{IO}\;(){}\<[E]%
 \\
-\>[B]{}\Varid{runBezier}\mathrel{=}\Varid{play}\;(\Conid{InWindow}\;\text{\tt \char34 Bézier\char34}\;(\mathrm{600},\mathrm{600})\;(\mathrm{0},{}\<[53]%
+\>[B]{}\Varid{runBezier}\mathrel{=}\Varid{play}\;(\Conid{InWindow}\;\text{\ttfamily \char34 Bézier\char34}\;(\mathrm{600},\mathrm{600})\;(\mathrm{0},{}\<[53]%
 \>[53]{}\mathrm{0})){}\<[E]%
 \\
 \>[B]{}\hsindent{3}{}\<[3]%
@@ -1417,7 +1419,7 @@ envolvendo \gloss{Gloss}. Nesse caso, o teste em causa deve fazer parte de uma f
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{main}\mathrel{=}\Varid{runBezier}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{run}\mathrel{=}\mathbf{do}\;\{\mskip1.5mu \Varid{system}\;\text{\tt \char34 ghc~cp2021t\char34};\Varid{system}\;\text{\tt \char34 ./cp2021t\char34}\mskip1.5mu\}{}\<[E]%
+\>[B]{}\Varid{run}\mathrel{=}\mathbf{do}\;\{\mskip1.5mu \Varid{system}\;\text{\ttfamily \char34 ghc~cp2021t\char34};\Varid{system}\;\text{\ttfamily \char34 ./cp2021t\char34}\mskip1.5mu\}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1558,9 +1560,17 @@ Definir:
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{outExpAr}\mathrel{=}\bot {}\<[E]%
 \\
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
+\>[B]{}\mbox{\onelinecomment outExpAr x = i1 x  -- tentar  outExpAr x = i1 x }{}\<[E]%
 \\
-\>[B]{}\Varid{recExpAr}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\mbox{\onelinecomment outExpAr(N x) = i1(i2 x) }{}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment outExpAr(Bin op a b) =  i2(i2(i1(op,(a,b))))}{}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment outExpAr (Un op a) = i2(i2(i2(op,a)))}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\mbox{\onelinecomment }{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{recExpAr}\;\Varid{x}\mathrel{=}\Varid{baseExpAr'}\;\Varid{id}\;\Varid{x}{}\<[E]%
 \\
 \>[B]{}\mbox{\onelinecomment }{}\<[E]%
 \\
@@ -1601,11 +1611,11 @@ Definir
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{loop}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{loop}\;(\Varid{c},\Varid{h})\mathrel{=}(((\mathrm{4}\mathbin{*}\Varid{h})\mathbin{+}\mathrm{2})\mathbin{*}\Varid{c}\div \Varid{h}\mathbin{+}\mathrm{2},\Varid{add}\;(\mathrm{1},\Varid{h})){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{inic}\mathrel{=}(\mathrm{1},\mathrm{0}){}\<[E]%
 \\
-\>[B]{}\Varid{inic}\mathrel{=}\bot {}\<[E]%
-\\
-\>[B]{}\Varid{prj}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{prj}\mathrel{=}\p1{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 por forma a que
@@ -1658,8 +1668,20 @@ Solução para listas não vazias:
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{18}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{43}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{avg\char95 aux}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{outLsingl}\;[\mskip1.5mu \Varid{a}\mskip1.5mu]{}\<[18]%
+\>[18]{}\mathrel{=}i_1\;(\Varid{a}){}\<[E]%
+\\
+\>[B]{}\Varid{outLsingl}\;(\Varid{a}\mathbin{:}\Varid{x})\mathrel{=}i_2\;(\Varid{a},\Varid{x}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{cataLsingl}\;\Varid{g}\mathrel{=}\Varid{g}\comp \Varid{recList}\;(\Varid{cataLsingl}\;\Varid{g})\comp \Varid{outLsingl}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{avg\char95 aux}\mathrel{=}\Varid{cataLsingl}\;\alt{\conj{\Varid{id}}{\underline{\mathrm{1}}}}{\conj{\Varid{alfa}}{\succ \comp \p2\comp \p2}}\;\mathbf{where}{}\<[E]%
+\\
+\>[B]{}\hsindent{43}{}\<[43]%
+\>[43]{}\Varid{alfa}\;(\Varid{a},(\Varid{avg},\Varid{l}))\mathrel{=}((\Varid{a}\mathbin{+}(\Varid{avg}\mathbin{*}\Varid{l}))\mathbin{/}(\Varid{l}\mathbin{+}\mathrm{1})){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Solução para árvores de tipo \LTree:
@@ -1675,9 +1697,9 @@ Solução para árvores de tipo \LTree:
 \end{hscode}\resethooks
 
 \subsection*{Problema 5}
-Inserir em baixo o código \Fsharp\ desenvolvido, entre \text{\tt \char92{}begin\char123{}verbatim\char125{}} e \text{\tt \char92{}end\char123{}verbatim\char125{}}:
+Inserir em baixo o código \Fsharp\ desenvolvido, entre \text{\ttfamily \char92{}begin\char123{}verbatim\char125{}} e \text{\ttfamily \char92{}end\char123{}verbatim\char125{}}:
 
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 
 \end{tabbing}
 

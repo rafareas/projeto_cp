@@ -131,9 +131,9 @@
 \\\hline
 a90707 & Vitor Lelis Noronha Leite	
 \\
-a22222 & Nome2 (preencher)	
+a90614 & Pedro Aquino	
 \\
-a33333 & Nome3 (preencher)	
+a86817 & Rafael dos Anjos	
 \end{tabular}
 \end{center}
 
@@ -701,7 +701,7 @@ Verifique as suas funções testando a propriedade seguinte:
 A média de uma lista não vazia e de uma \LTree\ com os mesmos elementos coincide,
 a menos de um erro de 0.1 milésimas:
 \begin{code}
-prop_avg :: Ord a => [a] -> Property
+prop_avg :: [Double] -> Property
 prop_avg = nonempty .==>. diff .<=. const 0.000001 where
    diff l = avg l - (avgLTree . genLTree) l
    genLTree = anaLTree lsplit
@@ -1086,12 +1086,16 @@ avg = p1.avg_aux
 \end{code}
 
 \begin{code}
+outLsingl [a]    = i1 (a)
+outLsingl(a:x) = i2(a,x)
 
-alfa (a,(avg,l)) = (div(a+(l * avg)) (add(l,1)))
-avg_aux = cataList(either (split id (const 1)) (split (alfa) (succ.p2.p2))) 
+cataLsingl g = g . recList(cataLsingl g) . outLsingl
+
+
+avg_aux = cataLsingl(either (split (id) (const 1)) (split (alfa) (succ . p2 . p2))) where
+                                          alfa( a , ( avg, l)) = ((a + (avg * l )) / (l + 1))                                   
                                     
-
-
+                                    
 \end{code}
 Solução para árvores de tipo \LTree:
 \begin{code}
