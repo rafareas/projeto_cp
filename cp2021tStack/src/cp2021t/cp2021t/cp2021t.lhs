@@ -1050,7 +1050,36 @@ ad_gen = undefined
 \end{code}
 
 \subsection*{Problema 2}
-Definir
+Definir\\
+Definindo primeiro uma função para cat, que chamaremos de c:\\*
+\[c 0 = 1 \]\\*
+\[c (n+1) = \frac{{(2(n+1))!}{(n+2)!\times(n+1)!}}\]\\
+
+Separando os termos:\\*
+
+\[c (n+1) = \frac{{(2n+2)\times(2n+1)}{(n+2)\times(n+1)}}\times\frac{{(2n)!}{(n+1)!\times(n)!}}\]\\
+
+Aplicando a definição da função e simplificando algumas contas:\\*
+
+\[c (n+1) =\frac{{2\times(2n+1)} {(n+2)}} \times c n\]\\*
+
+\[(=)\]\\*
+
+\[c (n+1) = \frac{{(4n+2)}{(n+2)}}\times c n\]\\
+
+Definindo agora uma função h para calcular o n:\\*
+
+\[h 0 = 0\]\\*
+\[h (n+1) = 1 + h n\]\\
+
+Aplicando h em c:\\*
+
+\[c (n+1) = \frac{{4\times(h n) + 2} {(h n) +2 \times}} c n\]\\
+
+Definindo uma função cat que usa o for com estas funções:\\*
+
+\[cat = \pi1 \cdot for loop (1,0) where loop (c,h) = ((4 \times h + 2)/(h + 2) \times c , 1+h)\]\\
+
 \begin{code}
 loop (c,h) = ((div(((4*h)+2)* c) (h+2)) , add(1,h)) 
 
