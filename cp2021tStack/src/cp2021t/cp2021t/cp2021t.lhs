@@ -1082,6 +1082,50 @@ hyloAlgForm = undefined
 \subsection*{Problema 4}
 
 Solução para listas não vazias:
+
+Tentamos resolver de duas formas diferentes;
+Primeiramente tentamos desenvolver pela definição de fokkinga,
+porém ao decorrer das substituições chegamos à um ponto que não conseguimos substituir mais.
+Logo, optamos por outra alternativa, fazer a partir de diagramas. 
+Conseguimos obter êxito, principalmente após análise e estudo do vídeo T7b, que exemplifica um problema similar.
+
+A Recursividade mútua foi realizada entre: 
+
+\textbf{length} que calcula o comprimento de uma lista, definido graficamente como: 
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |Nat0*|
+           \ar[d]_-{|length|}
+&
+    |Nat0 + Nat0\times Nat0*|
+           \ar[d]^{|id + id\times split avg length|}
+           \ar[l]_-{|inNat|}
+\\
+     |B|
+&
+     |1 + B|
+           \ar[l]^-{|g|}
+}
+\end{eqnarray*}
+
+\textbf{avg} que calcula a media da lista em recursividade junto com length, definido graficamente como: 
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |Nat0*|
+           \ar[d]_-{|avg|}
+&
+    |Nat0 + Nat0\times Nat0*|
+           \ar[d]^{|id + id\times split avg length|}
+           \ar[l]_-{|inNat|}
+\\
+     |B|
+&
+     |1 + B|
+           \ar[l]^-{|g|}
+}
+\end{eqnarray*}
+
+
 \begin{code}
 avg = p1.avg_aux
 \end{code}
