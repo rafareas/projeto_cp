@@ -191,6 +191,7 @@ o ``kit'' básico, escrito em \Haskell, para realizar o trabalho. Basta executar
 \begin{code}
 {-# OPTIONS_GHC -XNPlusKPatterns #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving, DeriveDataTypeable, FlexibleInstances #-}
+{-# OPTIONS_GHC -Wno-deferred-type-errors #-}
 module Main where 
 import Cp
 import List hiding (fac)
@@ -1017,8 +1018,8 @@ ad v = p2 . cataExpAr (ad_gen v)
 Definir:
 
 \begin{code}
-outExpAr = undefined
---outExpAr x = i1 x  -- tentar  outExpAr x = i1 x 
+--outExpAr = undefined
+outExpAr x = i1 x  -- tentar  outExpAr x = i1 x 
 --outExpAr(N x) = i1(i2 x) 
 --outExpAr(Bin op a b) =  i2(i2(i1(op,(a,b))))
 --outExpAr (Un op a) = i2(i2(i2(op,a)))
@@ -1100,7 +1101,10 @@ avg_aux = cataLsingl(either (split (id) (const 1)) (split (alfa) (succ . p2 . p2
 Solução para árvores de tipo \LTree:
 \begin{code}
 avgLTree = p1.cataLTree gene where
-   gene = undefined
+   gene = undefined --either((split (Leaf) (const 1)) (split (alfavg) (alflen))) where
+	          --          alfavg(avg,len) = div(avg len)
+	             --       alflen((e1,d1),(e2,d2)) = add(e2,d2)
+
 \end{code}
 
 \subsection*{Problema 5}
