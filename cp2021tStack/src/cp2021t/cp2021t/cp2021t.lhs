@@ -192,6 +192,7 @@ o ``kit'' básico, escrito em \Haskell, para realizar o trabalho. Basta executar
 {-# OPTIONS_GHC -XNPlusKPatterns #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving, DeriveDataTypeable, FlexibleInstances #-}
 {-# OPTIONS_GHC -Wno-deferred-type-errors #-}
+{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
 module Main where 
 import Cp
 import List hiding (fac)
@@ -1020,9 +1021,12 @@ Definir:
 \begin{code}
 --outExpAr = undefined
 outExpAr x = i1 x  -- tentar  outExpAr x = i1 x 
---outExpAr(N x) = i1(i2 x) 
---outExpAr(Bin op a b) =  i2(i2(i1(op,(a,b))))
---outExpAr (Un op a) = i2(i2(i2(op,a)))
+outExpAr(N a) = i1(i2 a) 
+outExpAr(Bin Sum a b) =  i2(i2(i1(Sum,(a,b))))
+outExpAr(Bin Product a b) =  i2(i2(i1(Product,(a,b))))
+outExpAr(Un Negate a) = i2(i2(i2(Negate,a)))
+outExpAr(Un E a) = i2(i2(i2(E,a)))
+
 
 ---
 
@@ -1046,7 +1050,36 @@ ad_gen = undefined
 \end{code}
 
 \subsection*{Problema 2}
-Definir
+Definir\\
+Definindo primeiro uma função para cat, que chamaremos de c:\\*
+\[c 0 = 1 \]\\*
+\[c (n+1) = \frac{{(2(n+1))!}{(n+2)!\times(n+1)!}}\]\\
+
+Separando os termos:\\*
+
+\[c (n+1) = \frac{{(2n+2)\times(2n+1)}{(n+2)\times(n+1)}}\times\frac{{(2n)!}{(n+1)!\times(n)!}}\]\\
+
+Aplicando a definição da função e simplificando algumas contas:\\*
+
+\[c (n+1) =\frac{{2\times(2n+1)} {(n+2)}} \times c n\]\\*
+
+\[(=)\]\\*
+
+\[c (n+1) = \frac{{(4n+2)}{(n+2)}}\times c n\]\\
+
+Definindo agora uma função h para calcular o n:\\*
+
+\[h 0 = 0\]\\*
+\[h (n+1) = 1 + h n\]\\
+
+Aplicando h em c:\\*
+
+\[c (n+1) = \frac{{4\times(h n) + 2} {(h n) +2 \times}} c n\]\\
+
+Definindo uma função cat que usa o for com estas funções:\\*
+
+\[cat = \pi1 \cdot for loop (1,0) where loop (c,h) = ((4 \times h + 2)/(h + 2) \times c , 1+h)\]\\
+
 \begin{code}
 loop (c,h) = ((div(((4*h)+2)* c) (h+2)) , add(1,h)) 
 
@@ -1146,8 +1179,8 @@ Solução para árvores de tipo \LTree:
 \begin{code}
 avgLTree = p1.cataLTree gene where
    gene = undefined --either((split (Leaf) (const 1)) (split (alfavg) (alflen))) where
-	          --          alfavg(avg,len) = div(avg len)
-	             --       alflen((e1,d1),(e2,d2)) = add(e2,d2)
+          --  alfavg(avg,len) = div(avg len)
+          --  alflen((e1,d1),(e2,d2)) = add(e2,d2)
 
 \end{code}
 
