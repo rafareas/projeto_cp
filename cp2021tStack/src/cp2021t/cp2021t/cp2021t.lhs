@@ -192,6 +192,7 @@ o ``kit'' básico, escrito em \Haskell, para realizar o trabalho. Basta executar
 {-# OPTIONS_GHC -XNPlusKPatterns #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving, DeriveDataTypeable, FlexibleInstances #-}
 {-# OPTIONS_GHC -Wno-deferred-type-errors #-}
+{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
 module Main where 
 import Cp
 import List hiding (fac)
@@ -1020,9 +1021,12 @@ Definir:
 \begin{code}
 --outExpAr = undefined
 outExpAr x = i1 x  -- tentar  outExpAr x = i1 x 
---outExpAr(N x) = i1(i2 x) 
---outExpAr(Bin op a b) =  i2(i2(i1(op,(a,b))))
---outExpAr (Un op a) = i2(i2(i2(op,a)))
+outExpAr(N a) = i1(i2 a) 
+outExpAr(Bin Sum a b) =  i2(i2(i1(Sum,(a,b))))
+outExpAr(Bin Product a b) =  i2(i2(i1(Product,(a,b))))
+outExpAr(Un Negate a) = i2(i2(i2(Negate,a)))
+outExpAr(Un E a) = i2(i2(i2(E,a)))
+
 
 ---
 
@@ -1102,8 +1106,8 @@ Solução para árvores de tipo \LTree:
 \begin{code}
 avgLTree = p1.cataLTree gene where
    gene = undefined --either((split (Leaf) (const 1)) (split (alfavg) (alflen))) where
-	          --          alfavg(avg,len) = div(avg len)
-	             --       alflen((e1,d1),(e2,d2)) = add(e2,d2)
+          --  alfavg(avg,len) = div(avg len)
+          --  alflen((e1,d1),(e2,d2)) = add(e2,d2)
 
 \end{code}
 
