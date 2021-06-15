@@ -1690,8 +1690,12 @@ Chegando assim, na definição do outExpAr:
 \\
 \>[B]{}\Varid{outExpAr}\;(\Conid{Un}\;\Varid{op}\;\Varid{a})\mathrel{=}i_2\;(i_2\;(i_2\;(\Varid{op},\Varid{a}))){}\<[E]%
 \\[\blanklineskip]%
+\>[B]{}\mbox{\onelinecomment }{}\<[E]%
+\\
 \>[B]{}\Varid{recExpAr}\;\Varid{x}\mathrel{=}\Varid{baseExpAr'}\;\Varid{id}\;\Varid{x}{}\<[E]%
 \\[\blanklineskip]%
+\>[B]{}\mbox{\onelinecomment }{}\<[E]%
+\\
 \>[B]{}\Varid{g\char95 eval\char95 exp}\mathrel{=}\bot {}\<[E]%
 \\
 \>[B]{}\mbox{\onelinecomment }{}\<[E]%
@@ -1809,45 +1813,49 @@ Apresentar de seguida a justificação da solução encontrada.
 
 Solução para listas não vazias:
 
+
 Tentamos resolver de duas formas diferentes;
 Primeiramente tentamos desenvolver pela definição de fokkinga,
 porém ao decorrer das substituições chegamos à um ponto que não conseguimos substituir mais.
 Logo, optamos por outra alternativa, fazer a partir de diagramas. 
 Conseguimos obter êxito, principalmente após análise e estudo do vídeo T7b, que exemplifica um problema similar.
 
+
 A Recursividade mútua foi realizada entre: 
 
 \textbf{length} que calcula o comprimento de uma lista, definido graficamente como: 
+
 \begin{eqnarray*}
 \xymatrix@C=2cm{
     \ensuremath{\N_0\mathbin{*}}
            \ar[d]_-{\ensuremath{\length }}
 &
     \ensuremath{\N_0\mathbin{+}\N_0\;\Conid{X}\;\N_0\mathbin{*}}
-           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\;\Conid{X}\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\conj{\cdot }{\cdot }\;\Varid{avg}\;\length \lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
-           \ar[l]_-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\Varid{id}\mathrel{=}\alt{\Varid{singl}}{\Varid{cons}}\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\;\Conid{X}\;\conj{\cdot }{\cdot }\;(\Varid{avg})\;(\length )}}
+           \ar[l]_-{\ensuremath{\Varid{id}\mathrel{=}\alt{\Varid{singl}}{\Varid{cons}}}}
 \\
      \ensuremath{\N_0}
 &
-     \ensuremath{\N_0\mathbin{+}(\N_0\lambda \Varid{times}\;(\N_0\lambda \Varid{times}\;\N_0))}
-           \ar[l]^-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\alt{\cdot }{\cdot }\;\underline{\mathrm{1}}\;(\succ \comp \p2\comp \p2)\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
+     \ensuremath{\N_0\mathbin{+}(\N_0\;\Conid{X}\;(\N_0\;\Conid{X}\;\N_0))}
+           \ar[l]^-{\ensuremath{\alt{\underline{\mathrm{1}}}{\succ \comp \p2\comp \p2}}}
 }
 \end{eqnarray*}
 
 \textbf{avg} que calcula a media da lista em recursividade junto com length, definido graficamente como: 
+
 \begin{eqnarray*}
 \xymatrix@C=2cm{
     \ensuremath{\N_0\mathbin{*}}
            \ar[d]_-{\ensuremath{\Varid{avg}}}
 &
-    \ensuremath{\N_0\mathbin{+}\N_0\lambda \Varid{times}\;\N_0\mathbin{*}}
-           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\lambda \Varid{times}\;\conj{\cdot }{\cdot }\;\Varid{avg}\;\length }}
-           \ar[l]_-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\Varid{id}\mathrel{=}\alt{\Varid{singl}}{\Varid{cons}}\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
+    \ensuremath{\N_0\mathbin{+}\N_0\;\Conid{X}\;\N_0\mathbin{*}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\;\Conid{X}\;\conj{\cdot }{\cdot }\;(\Varid{avg})\;(\length )}}
+           \ar[l]_-{\ensuremath{\Varid{id}\mathrel{=}\alt{\Varid{singl}}{\Varid{cons}}}}
 \\
      \ensuremath{\N_0}
 &
-     \ensuremath{\N_0\mathbin{+}(\N_0\lambda \Varid{times}\;(\N_0\lambda \Varid{times}\;\N_0))}
-           \ar[l]^-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\alt{\cdot }{\cdot }\;\Varid{id}\;\Varid{alfa}\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
+     \ensuremath{\N_0\mathbin{+}(\N_0\;\Conid{X}\;(\N_0\;\Conid{X}\;\N_0))}
+           \ar[l]^-{\ensuremath{\alt{\Varid{id}}{\Varid{alfa}}}}
 }
 \end{eqnarray*}
 
@@ -1900,6 +1908,8 @@ Definição final:
 \ColumnHook
 \end{hscode}\resethooks
 
+
+
 Solução para árvores de tipo \LTree:
 
 Tentamos seguir a mesma estratégia da questão anterior em desenvolver por gráficos,
@@ -1909,21 +1919,25 @@ Entretanto, segue o desenvolvimento.
 Começamos por desenvolver os gráficos para LTree de:
 
 \textbf{length} que calcula a quantidade de folhas, definido graficamente como:
+
 \begin{eqnarray*}
 \xymatrix@C=2cm{
     \ensuremath{\mathsf{LTree}\;\N_0}
            \ar[d]_-{\ensuremath{\length }}
 &
-    \ensuremath{\N_0\mathbin{+}((\mathsf{LTree}\;\N_0)\mathbin{\uparrow}\mathrm{2})}
-           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\conj{\Varid{avg}}{\length }\mathbin{\uparrow}\mathrm{2})}}
+    \ensuremath{\N_0\mathbin{+}(\mathsf{LTree}\;\N_0)\mathbin{**}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\conj{\Varid{avg}}{\length }\mathbin{**}}}
            \ar[l]_-{\ensuremath{\Varid{inLTree}}}
 \\
      \ensuremath{\N_0}
 &
-     \ensuremath{\N_0\mathbin{+}(((\mathsf{LTree}\;\N_0)\;\Conid{X}\;(\mathsf{LTree}\;\N_0))\mathbin{\uparrow}\mathrm{2})}
+     \ensuremath{\N_0\mathbin{+}((\mathsf{LTree}\;\N_0)\;\Conid{X}\;(\mathsf{LTree}\;\N_0))\mathbin{**}}
            \ar[l]^-{\ensuremath{\alt{\underline{\mathrm{1}}}{\Varid{alflen}}}}
 }
 \end{eqnarray*}
+
+Definição de alflen: 
+\[alfalen((e1,d1),(e2,d2)) = add(e2,d2)\]\\
 
 \textbf{avg} que calcula a média das folhas, definido graficamente como:
 \begin{eqnarray*}
@@ -1931,16 +1945,19 @@ Começamos por desenvolver os gráficos para LTree de:
     \ensuremath{\mathsf{LTree}\;\N_0}
            \ar[d]_-{\ensuremath{\Varid{avg}}}
 &
-    \ensuremath{\N_0\mathbin{+}((\mathsf{LTree}\;\N_0)\mathbin{\uparrow}\mathrm{2})}
-           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\conj{\Varid{avg}}{\length }\mathbin{\uparrow}\mathrm{2})}}
+    \ensuremath{\N_0\mathbin{+}(\mathsf{LTree}\;\N_0)\mathbin{**}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\conj{\Varid{avg}}{\length }\mathbin{**}}}
            \ar[l]_-{\ensuremath{\Varid{inLTree}}}
 \\
      \ensuremath{\N_0}
 &
-     \ensuremath{\N_0\mathbin{+}(((\mathsf{LTree}\;\N_0)\;\Conid{X}\;(\mathsf{LTree}\;\N_0))\mathbin{\uparrow}\mathrm{2})}
+     \ensuremath{\N_0\mathbin{+}((\mathsf{LTree}\;\N_0)\;\Conid{X}\;(\mathsf{LTree}\;\N_0))\mathbin{**}}
            \ar[l]^-{\ensuremath{\alt{\Conid{Leaf}}{\Varid{alfavg}}}}
 }
 \end{eqnarray*}
+
+Definição de alfavg:
+\[alfavg(avg,len) = avg/len\]\\
 
 Substituindo na definição, e chegando na nossa resolução: 
 \begin{eqnarray*}
@@ -1948,13 +1965,11 @@ Substituindo na definição, e chegando na nossa resolução:
 %
 \just\equiv{ Fokkinga }
 %
-    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\llparenthesis\, \conj{\alt{\Conid{Leaf}}{\Varid{alfavg}}}{\alt{\underline{\mathrm{1}}}{\Varid{alflen}}}\,\rrparenthesis\lambda ;\mathbf{where}\lambda ;\Varid{alfavg}\;(\Varid{avg},\Varid{len})\mathrel{=}\Varid{avg}\mathbin{/}\Varid{len}\;\Varid{alflen}\;((e_1 ,\Varid{d1}),(e_2 ,\Varid{d2}))\mathrel{=}e_2 \mathbin{+}\Varid{d2}}     
+    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\llparenthesis\, \conj{\alt{\Conid{Leaf}}{\Varid{alfavg}}}{\alt{\underline{\mathrm{1}}}{\Varid{alflen}}}\,\rrparenthesis} 
 %
 \just\equiv{ Lei da Troca }
 %
-    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\llparenthesis\, \alt{\conj{\Conid{Leaf}}{\underline{\mathrm{1}}}}{\conj{\Varid{alfavg}}{\Varid{alflen}}}\,\rrparenthesis}\;where\;
-     alfavg(avg,len) = avg/len
-     alflen((e1,d1),(e2,d2)) = e2 + d2
+    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\llparenthesis\, \alt{\conj{\Conid{Leaf}}{\underline{\mathrm{1}}}}{\conj{\Varid{alfavg}}{\Varid{alflen}}}\,\rrparenthesis} 
 \qed
 \end{eqnarray*}
 
