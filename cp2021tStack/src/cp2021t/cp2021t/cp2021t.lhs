@@ -1118,15 +1118,18 @@ hyloAlgForm = undefined
 
 Solução para listas não vazias:
 
+
 Tentamos resolver de duas formas diferentes;
 Primeiramente tentamos desenvolver pela definição de fokkinga,
 porém ao decorrer das substituições chegamos à um ponto que não conseguimos substituir mais.
 Logo, optamos por outra alternativa, fazer a partir de diagramas. 
 Conseguimos obter êxito, principalmente após análise e estudo do vídeo T7b, que exemplifica um problema similar.
 
+
 A Recursividade mútua foi realizada entre: 
 
 \textbf{length} que calcula o comprimento de uma lista, definido graficamente como: 
+
 \begin{eqnarray*}
 \xymatrix@@C=2cm{
     |Nat0*|
@@ -1144,6 +1147,7 @@ A Recursividade mútua foi realizada entre:
 \end{eqnarray*}
 
 \textbf{avg} que calcula a media da lista em recursividade junto com length, definido graficamente como: 
+
 \begin{eqnarray*}
 \xymatrix@@C=2cm{
     |Nat0*|
@@ -1193,6 +1197,8 @@ avg_aux = cataLSingl(either (split (id) (const 1)) (split (alfa) (succ . p2 . p2
                                           alfa( a , ( avg, l)) = ((a + (avg * l )) / (l + 1))                                   
 \end{code}   
 
+
+
 Solução para árvores de tipo \LTree:
 
 Tentamos seguir a mesma estratégia da questão anterior em desenvolver por gráficos,
@@ -1202,6 +1208,7 @@ Entretanto, segue o desenvolvimento.
 Começamos por desenvolver os gráficos para LTree de:
 
 \textbf{length} que calcula a quantidade de folhas, definido graficamente como:
+
 \begin{eqnarray*}
 \xymatrix@@C=2cm{
     |LTree Nat0|
