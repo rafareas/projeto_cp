@@ -1133,13 +1133,13 @@ A Recursividade mútua foi realizada entre:
            \ar[d]_-{|length|}
 &
     |Nat0 + Nat0 X Nat0*|
-           \ar[d]^{|id + id X \begin{equation} split avg length \end{equation}|}
-           \ar[l]_-{|\begin{equation} id = either singl cons \end{equation}|}
+           \ar[d]^{|id + id X split (avg) (length)|}
+           \ar[l]_-{|id = either (singl) (cons)|}
 \\
      |Nat0|
 &
-     |Nat0 + (Nat0 \times (Nat0 \times Nat0))|
-           \ar[l]^-{|\begin{equation} either (const 1) (succ . p2 . p2) \end{equation}|}
+     |Nat0 + (Nat0 X (Nat0 X Nat0))|
+           \ar[l]^-{|either (const 1) (succ . p2 . p2)|}
 }
 \end{eqnarray*}
 
@@ -1149,14 +1149,14 @@ A Recursividade mútua foi realizada entre:
     |Nat0*|
            \ar[d]_-{|avg|}
 &
-    |Nat0 + Nat0\times Nat0*|
-           \ar[d]^{|id + id\times split avg length|}
-           \ar[l]_-{|\begin{equation} id = either singl cons \end{equation}|}
+    |Nat0 + Nat0 X Nat0*|
+           \ar[d]^{|id + id X split (avg) (length)|}
+           \ar[l]_-{|id = either (singl) (cons)|}
 \\
      |Nat0|
 &
-     |Nat0 + (Nat0 \times (Nat0 \times Nat0))|
-           \ar[l]^-{|\begin{equation} either id alfa \end{equation}|}
+     |Nat0 + (Nat0 X (Nat0 X Nat0))|
+           \ar[l]^-{|either (id) (alfa)|}
 }
 \end{eqnarray*}
 
@@ -1207,13 +1207,13 @@ Começamos por desenvolver os gráficos para LTree de:
     |LTree Nat0|
            \ar[d]_-{|length|}
 &
-    |Nat0 + ((LTree Nat0)^2)|
-           \ar[d]^{|id + ((split avg length)^2)|}
+    |Nat0 + 2^{LTree Nat0}|
+           \ar[d]^{|id + 2^{split (avg) (length)}|}
            \ar[l]_-{|inLTree|}
 \\
      |Nat0|
 &
-     |Nat0 + (((LTree Nat0) X (LTree Nat0))^2)|
+     |Nat0 + 2^{(LTree Nat0) X (LTree Nat0)}|
            \ar[l]^-{|either (const 1) (alflen)|}
 }
 \end{eqnarray*}
@@ -1224,13 +1224,13 @@ Começamos por desenvolver os gráficos para LTree de:
     |LTree Nat0|
            \ar[d]_-{|avg|}
 &
-    |Nat0 + ((LTree Nat0)^2)|
-           \ar[d]^{|id + ((split avg length)^2)|}
+    |Nat0 + 2^{LTree Nat0}|
+           \ar[d]^{|id + 2^{split (avg) (length)}|}
            \ar[l]_-{|inLTree|}
 \\
      |Nat0|
 &
-     |Nat0 + (((LTree Nat0) X (LTree Nat0))^2)|
+     |Nat0 + 2^{(LTree Nat0) X (LTree Nat0)}
            \ar[l]^-{|either (Leaf) (alfavg)|}
 }
 \end{eqnarray*}
@@ -1241,15 +1241,15 @@ Substituindo na definição, e chegando na nossa resolução:
 %
 \just\equiv{ Fokkinga }
 %
-    |split (avg) (length) = cataLTree(split (either (Leaf) (alfavg)) (either (const 1) (alflen)))\;where\;
-     alfavg(avg,len) = avg/len
-     alflen((e1,d1),(e2,d2)) = e2 + d2|     
+    |split (avg) (length) = cataLTree(split (either (Leaf) (alfavg)) (either (const 1) (alflen))) where|
+       |alfavg(avg,len) = avg/len|
+       |alflen((e1,d1),(e2,d2)) = e2 + d2|     
 %
 \just\equiv{ Lei da Troca }
 %
-    |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen)))|\;where\;
-     alfavg(avg,len) = avg/len
-     alflen((e1,d1),(e2,d2)) = e2 + d2
+    |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen))) where|
+       |alfavg(avg,len) = avg/len|
+       |alflen((e1,d1),(e2,d2)) = e2 + d2|
 \qed
 \end{eqnarray*}
 
