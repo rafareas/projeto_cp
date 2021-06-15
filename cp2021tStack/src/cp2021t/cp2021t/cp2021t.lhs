@@ -1243,45 +1243,49 @@ hyloAlgForm = undefined
 
 Solução para listas não vazias:
 
+
 Tentamos resolver de duas formas diferentes;
 Primeiramente tentamos desenvolver pela definição de fokkinga,
 porém ao decorrer das substituições chegamos à um ponto que não conseguimos substituir mais.
 Logo, optamos por outra alternativa, fazer a partir de diagramas. 
 Conseguimos obter êxito, principalmente após análise e estudo do vídeo T7b, que exemplifica um problema similar.
 
+
 A Recursividade mútua foi realizada entre: 
 
 \textbf{length} que calcula o comprimento de uma lista, definido graficamente como: 
+
 \begin{eqnarray*}
 \xymatrix@@C=2cm{
     |Nat0*|
            \ar[d]_-{|length|}
 &
     |Nat0 + Nat0 X Nat0*|
-           \ar[d]^{|id + id X \begin{equation} split avg length \end{equation}|}
-           \ar[l]_-{|\begin{equation} id = either singl cons \end{equation}|}
+           \ar[d]^{|id + id X split (avg) (length)|}
+           \ar[l]_-{|id = either (singl) (cons)|}
 \\
      |Nat0|
 &
-     |Nat0 + (Nat0 \times (Nat0 \times Nat0))|
-           \ar[l]^-{|\begin{equation} either (const 1) (succ . p2 . p2) \end{equation}|}
+     |Nat0 + (Nat0 X (Nat0 X Nat0))|
+           \ar[l]^-{|either (const 1) (succ . p2 . p2)|}
 }
 \end{eqnarray*}
 
 \textbf{avg} que calcula a media da lista em recursividade junto com length, definido graficamente como: 
+
 \begin{eqnarray*}
 \xymatrix@@C=2cm{
     |Nat0*|
            \ar[d]_-{|avg|}
 &
-    |Nat0 + Nat0\times Nat0*|
-           \ar[d]^{|id + id\times split avg length|}
-           \ar[l]_-{|\begin{equation} id = either singl cons \end{equation}|}
+    |Nat0 + Nat0 X Nat0*|
+           \ar[d]^{|id + id X split (avg) (length)|}
+           \ar[l]_-{|id = either (singl) (cons)|}
 \\
      |Nat0|
 &
-     |Nat0 + (Nat0 \times (Nat0 \times Nat0))|
-           \ar[l]^-{|\begin{equation} either id alfa \end{equation}|}
+     |Nat0 + (Nat0 X (Nat0 X Nat0))|
+           \ar[l]^-{|either (id) (alfa)|}
 }
 \end{eqnarray*}
 
@@ -1318,6 +1322,8 @@ avg_aux = cataLSingl(either (split (id) (const 1)) (split (alfa) (succ . p2 . p2
                                           alfa( a , ( avg, l)) = ((a + (avg * l )) / (l + 1))                                   
 \end{code}   
 
+
+
 Solução para árvores de tipo \LTree:
 
 Tentamos seguir a mesma estratégia da questão anterior em desenvolver por gráficos,
@@ -1327,18 +1333,19 @@ Entretanto, segue o desenvolvimento.
 Começamos por desenvolver os gráficos para LTree de:
 
 \textbf{length} que calcula a quantidade de folhas, definido graficamente como:
+
 \begin{eqnarray*}
 \xymatrix@@C=2cm{
     |LTree Nat0|
            \ar[d]_-{|length|}
 &
-    |Nat0 + ((LTree Nat0)^2)|
-           \ar[d]^{|id + ((split avg length)^2)|}
+    |Nat0 + 2^{LTree Nat0}|
+           \ar[d]^{|id + 2^{split (avg) (length)}|}
            \ar[l]_-{|inLTree|}
 \\
      |Nat0|
 &
-     |Nat0 + (((LTree Nat0) X (LTree Nat0))^2)|
+     |Nat0 + 2^{(LTree Nat0) X (LTree Nat0)}|
            \ar[l]^-{|either (const 1) (alflen)|}
 }
 \end{eqnarray*}
@@ -1349,13 +1356,13 @@ Começamos por desenvolver os gráficos para LTree de:
     |LTree Nat0|
            \ar[d]_-{|avg|}
 &
-    |Nat0 + ((LTree Nat0)^2)|
-           \ar[d]^{|id + ((split avg length)^2)|}
+    |Nat0 + 2^{LTree Nat0}|
+           \ar[d]^{|id + 2^{split (avg) (length)}|}
            \ar[l]_-{|inLTree|}
 \\
      |Nat0|
 &
-     |Nat0 + (((LTree Nat0) X (LTree Nat0))^2)|
+     |Nat0 + 2^{(LTree Nat0) X (LTree Nat0)}
            \ar[l]^-{|either (Leaf) (alfavg)|}
 }
 \end{eqnarray*}
@@ -1366,15 +1373,15 @@ Substituindo na definição, e chegando na nossa resolução:
 %
 \just\equiv{ Fokkinga }
 %
-    |split (avg) (length) = cataLTree(split (either (Leaf) (alfavg)) (either (const 1) (alflen)))\;where\;
-     alfavg(avg,len) = avg/len
-     alflen((e1,d1),(e2,d2)) = e2 + d2|     
+    |split (avg) (length) = cataLTree(split (either (Leaf) (alfavg)) (either (const 1) (alflen))) where|
+       |alfavg(avg,len) = avg/len|
+       |alflen((e1,d1),(e2,d2)) = e2 + d2|     
 %
 \just\equiv{ Lei da Troca }
 %
-    |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen)))|\;where\;
-     alfavg(avg,len) = avg/len
-     alflen((e1,d1),(e2,d2)) = e2 + d2
+    |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen))) where|
+       |alfavg(avg,len) = avg/len|
+       |alflen((e1,d1),(e2,d2)) = e2 + d2|
 \qed
 \end{eqnarray*}
 
