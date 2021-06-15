@@ -1018,20 +1018,145 @@ ad v = p2 . cataExpAr (ad_gen v)
 \end{code}
 Definir:
 
+
+Usando a Definição do inExpAr para chegar na definição do outExpAr
+\begin{eqnarray*}
+\start
+  outExpAr . inExpAr = id 
+
+%
+\just\equiv{ Definição de inExpAr := [const x,num_ops]}
+%
+
+  outExpAr . [cont x,num_ops] = id 
+
+%
+\just\equiv{Fusão-+}
+%
+
+  [outExpAr . const x, outExpAr . num_ops] = id
+
+%
+\just\equiv{Universal-+}
+%
+
+        |lcbr(
+		outExpAr . (const x) = i1
+	)(
+		outExpAr . num_ops = i2
+	)|
+
+%
+\just\equiv{Substituição: num_ ops}
+%
+
+        |lcbr(
+		outExpAr . (const x) = i1
+	)(
+		outExpAr . [N,ops] = i2
+	)|
+
+%
+\just\equiv{Fusão-+}
+%
+
+    
+	outExpAr . (const x) = i1 \quad \wedge \quad [outExpAr . N, outExpAr . ops] = i2
+	
+
+%
+\just\equiv{Universal-+}
+%
+
+		outExpAr . (const x) = i1
+    \quad \wedge \quad
+		outExpAr . N = i2 . i1
+    \quad \wedge \quad
+    outExpAr . (ops) = i2 . i2
+
+
+%
+\just\equiv{Substituição ops}
+%
+
+        
+		outExpAr . (const x) = i1
+    \quad \wedge \quad
+		outExpAr . N = i2 . i1
+    \quad \wedge \quad
+    outExpAr . [bin , uncurry Un] = i2 . i2
+  
+
+%
+\just\equiv{Fusão-+}
+%
+
+        
+		outExpAr . (const x) = i1
+	\quad \wedge \quad
+		outExpAr . N = i2 . i1
+	\quad \wedge \quad \\
+    [outExpAr . bin , outExpAr . uncurry Un] = i2 . i2
+   
+
+%
+\just\equiv{Universal-+, k:=i2.i2, f:=outExpAr.bin, g:=outExpAr . uncurry Un}
+%
+
+      
+		outExpAr . (const x) = i1
+	\quad \wedge \quad
+		outExpAr . N = i2 . i1
+	\quad \wedge \quad \\
+    [outExpAr . bin , outExpAr . uncurry Un] = i2 . i2
+   
+
+%
+\just\equiv{Universal-+, k:=i2.i2, f:=outExpAr.bin, g:=outExpAr . uncurry Un}
+%
+
+        
+		outExpAr . (const x) = i1
+	\quad \wedge \quad
+		outExpAr . N = i2 . i1
+	\quad \wedge \quad \\
+    outExpAr . (bin) = i2 . i2 . i1 
+   \quad \wedge \quad 
+    outExpAr . (uncurry Un) = i2 . i2 . i2 
+   
+
+%
+\just\equiv{Igualdade extensional, Def-comp}
+%
+
+        
+		outExpAr (const x) = i1 x
+   \quad \wedge \quad
+		outExpAr (N a) = i2(i1 x)
+   \quad \wedge \quad \\
+    outExpAr (Bin op a b) = i2(i2(i1(op,(a,b)))  
+   \quad \wedge \quad
+    outExpAr (Un \: op \: a) = i2(i2(i2(op,a))) 
+   
+\\
+\\
+
+Chegando assim, na definição do outExpAr:
+
+
+\qed
+\end{eqnarray*}
 \begin{code}
---outExpAr = undefined
-outExpAr x = i1 x  -- tentar  outExpAr x = i1 x 
-outExpAr(N a) = i1(i2 a) 
-outExpAr(Bin Sum a b) =  i2(i2(i1(Sum,(a,b))))
-outExpAr(Bin Product a b) =  i2(i2(i1(Product,(a,b))))
-outExpAr(Un Negate a) = i2(i2(i2(Negate,a)))
-outExpAr(Un E a) = i2(i2(i2(E,a)))
 
+outExpAr x  = i1 x  
+outExpAr(N a) = i2(i1 a) 
+outExpAr(Bin op a b) =  i2(i2(i1(op,(a,b))))
+outExpAr(Un op a) = i2(i2(i2(op,a)))
 
----
-
+--
 recExpAr x = baseExpAr' id x
----
+
+--
 g_eval_exp = undefined
 ---
 clean = undefined
