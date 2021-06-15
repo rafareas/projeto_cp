@@ -1617,35 +1617,37 @@ Definir:
 \end{hscode}\resethooks
 
 \subsection*{Problema 2}
-Definir\\
-Definindo primeiro uma função para cat, que chamaremos de c:\\*
-\[c 0 = 1 \]\\*
-\[c (n+1) = \frac{{(2(n+1))!}{(n+2)!\times(n+1)!}}\]\\
+Definir:\\
+Definindo primeiro uma função auxiliar para \(cat\), que chamaremos de \(c\):\\*
+\[c\:0 = 1 \]\\*
+\[c\:(n+1) = \frac{(2(n+1))!}{(n+2)!\times(n+1)!}\]\\
 
 Separando os termos:\\*
 
-\[c (n+1) = \frac{{(2n+2)\times(2n+1)}{(n+2)\times(n+1)}}\times\frac{{(2n)!}{(n+1)!\times(n)!}}\]\\
+\[c\:(n+1) = \frac{(2n+2)\times(2n+1)}{(n+2)\times(n+1)}\times\frac{(2n)!}{(n+1)!\times(n)!}\]\\
 
-Aplicando a definição da função e simplificando algumas contas:\\*
+Aplicando a definição de \(c\:n\) e simplificando algumas contas:\\*
 
-\[c (n+1) =\frac{{2\times(2n+1)} {(n+2)}} \times c n\]\\*
+\[c\:(n+1) =\frac{2\times(2n+1)} {(n+2)}\times c\:n\]\\*
 
 \[(=)\]\\*
 
-\[c (n+1) = \frac{{(4n+2)}{(n+2)}}\times c n\]\\
+\[c\:(n+1) = \frac{(4n+2)}{(n+2)}\times c\:n\]\\
 
-Definindo agora uma função h para calcular o n:\\*
+Definindo agora uma função \(h\) para calcular o \(n\):\\*
 
-\[h 0 = 0\]\\*
-\[h (n+1) = 1 + h n\]\\
+\[h\:0 = 0\]\\*
+\[h\:(n+1) = 1 + h\:n\]\\
 
-Aplicando h em c:\\*
+Aplicando \(h\) em \(c\):\\*
 
-\[c (n+1) = \frac{{4\times(h n) + 2} {(h n) +2 \times}} c n\]\\
+\[c\:(n+1) = \frac{4\times(h\:n) + 2} {(h\:n) +2} \times c\:n\]\\
 
-Definindo uma função cat que usa o for com estas funções:\\*
+Definindo a função \(cat\) que usa o \(for\) com estas funções:\\*
 
-\[cat = \pi1 \cdot for loop (1,0) where loop (c,h) = ((4 \times h + 2)/(h + 2) \times c , 1+h)\]\\
+\[cat = \pi1 \cdot for\:loop\:(1,0)\;where\;loop\:(c,h) = ((4 \times h + 2)/(h + 2) \times c , 1+h)\]\\
+
+Em linguagem \(Haskell\):
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1698,6 +1700,50 @@ Apresentar de seguida a justificação da solução encontrada.
 \subsection*{Problema 4}
 
 Solução para listas não vazias:
+
+Tentamos resolver de duas formas diferentes;
+Primeiramente tentamos desenvolver pela definição de fokkinga,
+porém ao decorrer das substituições chegamos à um ponto que não conseguimos substituir mais.
+Logo, optamos por outra alternativa, fazer a partir de diagramas. 
+Conseguimos obter êxito, principalmente após análise e estudo do vídeo T7b, que exemplifica um problema similar.
+
+A Recursividade mútua foi realizada entre: 
+
+\textbf{length} que calcula o comprimento de uma lista, definido graficamente como: 
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\N_0\mathbin{*}}
+           \ar[d]_-{\ensuremath{\length }}
+&
+    \ensuremath{\N_0\mathbin{+}\N_0\lambda \Varid{times}\;\N_0\mathbin{*}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\lambda \Varid{times}\;\conj{\cdot }{\cdot }\;\Varid{avg}\;\length }}
+           \ar[l]_-{\ensuremath{\mathsf{in}}}
+\\
+     \ensuremath{\Conid{B}}
+&
+     \ensuremath{\mathrm{1}\mathbin{+}\Conid{B}}
+           \ar[l]^-{\ensuremath{\Varid{g}}}
+}
+\end{eqnarray*}
+
+\textbf{avg} que calcula a media da lista em recursividade junto com length, definido graficamente como: 
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\N_0\mathbin{*}}
+           \ar[d]_-{\ensuremath{\Varid{avg}}}
+&
+    \ensuremath{\N_0\mathbin{+}\N_0\lambda \Varid{times}\;\N_0\mathbin{*}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\lambda \Varid{times}\;\conj{\cdot }{\cdot }\;\Varid{avg}\;\length }}
+           \ar[l]_-{\ensuremath{\mathsf{in}}}
+\\
+     \ensuremath{\Conid{B}}
+&
+     \ensuremath{\mathrm{1}\mathbin{+}\Conid{B}}
+           \ar[l]^-{\ensuremath{\Varid{g}}}
+}
+\end{eqnarray*}
+
+
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
