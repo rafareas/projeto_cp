@@ -1132,14 +1132,14 @@ A Recursividade mútua foi realizada entre:
     |Nat0*|
            \ar[d]_-{|length|}
 &
-    |Nat0 + Nat0\times Nat0*|
-           \ar[d]^{|id + id\times split avg length|}
-           \ar[l]_-{|inNat|}
+    |Nat0 + Nat0 X Nat0*|
+           \ar[d]^{|id + id X \begin{equation} split avg length \end{equation}|}
+           \ar[l]_-{|\begin{equation} id = either singl cons \end{equation}|}
 \\
-     |B|
+     |Nat0|
 &
-     |1 + B|
-           \ar[l]^-{|g|}
+     |Nat0 + (Nat0 \times (Nat0 \times Nat0))|
+           \ar[l]^-{|\begin{equation} either (const 1) (succ . p2 . p2) \end{equation}|}
 }
 \end{eqnarray*}
 
@@ -1151,33 +1151,109 @@ A Recursividade mútua foi realizada entre:
 &
     |Nat0 + Nat0\times Nat0*|
            \ar[d]^{|id + id\times split avg length|}
-           \ar[l]_-{|inNat|}
+           \ar[l]_-{|\begin{equation} id = either singl cons \end{equation}|}
 \\
-     |B|
+     |Nat0|
 &
-     |1 + B|
-           \ar[l]^-{|g|}
+     |Nat0 + (Nat0 \times (Nat0 \times Nat0))|
+           \ar[l]^-{|\begin{equation} either id alfa \end{equation}|}
 }
 \end{eqnarray*}
 
+\textbf{alfa} definido como sendo:
+\[alfa (a,(avg,l)) = (a + l \times avg)/(l+1)\]\\
 
+Substituindo na fórmula de fokkinga:
+\begin{eqnarray*}
+\start
+%
+\just\equiv{ Fokkinga }
+%
+    |split avg length = cataNat(split (either (id) (alfa)) (either (const 1) (succ . p2 . p2)))|     
+%
+\just\equiv{ Lei da Troca }
+%
+    |split avg length = cataNat(either (split (id) (const 1)) (split (alfa) (succ . p2 . p2)))|
+\qed
+\end{eqnarray*}
+
+Conluindo e chegando na definição:
 \begin{code}
 avg = p1.avg_aux
 \end{code}
-
+Foi preciso definir o catamorfismo para listas não vazias:
 \begin{code}
-outLsingl [a]    = i1 (a)
-outLsingl(a:x) = i2(a,x)
-
-cataLsingl g = g . recList(cataLsingl g) . outLsingl
-
-
-avg_aux = cataLsingl(either (split (id) (const 1)) (split (alfa) (succ . p2 . p2))) where
-                                          alfa( a , ( avg, l)) = ((a + (avg * l )) / (l + 1))                                   
-                                    
-                                    
+outLSingl [a]    = i1 (a)
+outLSingl(a:x) = i2(a,x)
+cataLSingl g = g . recList(cataLSingl g) . outLSingl
 \end{code}
+Definição final:
+\begin{code}
+avg_aux = cataLSingl(either (split (id) (const 1)) (split (alfa) (succ . p2 . p2))) where
+                                          alfa( a , ( avg, l)) = ((a + (avg * l )) / (l + 1))                                   
+\end{code}   
+
 Solução para árvores de tipo \LTree:
+
+Tentamos seguir a mesma estratégia da questão anterior em desenvolver por gráficos,
+porém a resolução final que chegamos não compila, e não sabemos onde possa estar o erro.
+Entretanto, segue o desenvolvimento.
+
+Começamos por desenvolver os gráficos para LTree de:
+
+\textbf{length} que calcula a quantidade de folhas, definido graficamente como:
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |LTree Nat0|
+           \ar[d]_-{|length|}
+&
+    |Nat0 + ((LTree Nat0)^2)|
+           \ar[d]^{|id + ((split avg length)^2)|}
+           \ar[l]_-{|inLTree|}
+\\
+     |Nat0|
+&
+     |Nat0 + (((LTree Nat0) X (LTree Nat0))^2)|
+           \ar[l]^-{|either (const 1) (alflen)|}
+}
+\end{eqnarray*}
+
+\textbf{avg} que calcula a média das folhas, definido graficamente como:
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |LTree Nat0|
+           \ar[d]_-{|avg|}
+&
+    |Nat0 + ((LTree Nat0)^2)|
+           \ar[d]^{|id + ((split avg length)^2)|}
+           \ar[l]_-{|inLTree|}
+\\
+     |Nat0|
+&
+     |Nat0 + (((LTree Nat0) X (LTree Nat0))^2)|
+           \ar[l]^-{|either (Leaf) (alfavg)|}
+}
+\end{eqnarray*}
+
+Substituindo na definição, e chegando na nossa resolução: 
+\begin{eqnarray*}
+\start
+%
+\just\equiv{ Fokkinga }
+%
+    |split (avg) (length) = cataLTree(split (either (Leaf) (alfavg)) (either (const 1) (alflen)))\;where\;
+     alfavg(avg,len) = avg/len
+     alflen((e1,d1),(e2,d2)) = e2 + d2|     
+%
+\just\equiv{ Lei da Troca }
+%
+    |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen)))|\;where\;
+     alfavg(avg,len) = avg/len
+     alflen((e1,d1),(e2,d2)) = e2 + d2|
+\qed
+\end{eqnarray*}
+
+
 \begin{code}
 avgLTree = p1.cataLTree gene where
    gene = undefined --either((split (Leaf) (const 1)) (split (alfavg) (alflen))) where
