@@ -1249,7 +1249,7 @@ Substituindo na definição, e chegando na nossa resolução:
 %
     |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen)))|\;where\;
      alfavg(avg,len) = avg/len
-     alflen((e1,d1),(e2,d2)) = e2 + d2|
+     alflen((e1,d1),(e2,d2)) = e2 + d2
 \qed
 \end{eqnarray*}
 

@@ -1715,14 +1715,14 @@ A Recursividade mútua foi realizada entre:
     \ensuremath{\N_0\mathbin{*}}
            \ar[d]_-{\ensuremath{\length }}
 &
-    \ensuremath{\N_0\mathbin{+}\N_0\lambda \Varid{times}\;\N_0\mathbin{*}}
-           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\lambda \Varid{times}\;\conj{\cdot }{\cdot }\;\Varid{avg}\;\length }}
-           \ar[l]_-{\ensuremath{\mathsf{in}}}
+    \ensuremath{\N_0\mathbin{+}\N_0\;\Conid{X}\;\N_0\mathbin{*}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\;\Conid{X}\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\conj{\cdot }{\cdot }\;\Varid{avg}\;\length \lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
+           \ar[l]_-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\Varid{id}\mathrel{=}\alt{\Varid{singl}}{\Varid{cons}}\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
 \\
-     \ensuremath{\Conid{B}}
+     \ensuremath{\N_0}
 &
-     \ensuremath{\mathrm{1}\mathbin{+}\Conid{B}}
-           \ar[l]^-{\ensuremath{\Varid{g}}}
+     \ensuremath{\N_0\mathbin{+}(\N_0\lambda \Varid{times}\;(\N_0\lambda \Varid{times}\;\N_0))}
+           \ar[l]^-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\alt{\cdot }{\cdot }\;\underline{\mathrm{1}}\;(\succ \comp \p2\comp \p2)\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
 }
 \end{eqnarray*}
 
@@ -1734,42 +1734,123 @@ A Recursividade mútua foi realizada entre:
 &
     \ensuremath{\N_0\mathbin{+}\N_0\lambda \Varid{times}\;\N_0\mathbin{*}}
            \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\Varid{id}\lambda \Varid{times}\;\conj{\cdot }{\cdot }\;\Varid{avg}\;\length }}
-           \ar[l]_-{\ensuremath{\mathsf{in}}}
+           \ar[l]_-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\Varid{id}\mathrel{=}\alt{\Varid{singl}}{\Varid{cons}}\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
 \\
-     \ensuremath{\Conid{B}}
+     \ensuremath{\N_0}
 &
-     \ensuremath{\mathrm{1}\mathbin{+}\Conid{B}}
-           \ar[l]^-{\ensuremath{\Varid{g}}}
+     \ensuremath{\N_0\mathbin{+}(\N_0\lambda \Varid{times}\;(\N_0\lambda \Varid{times}\;\N_0))}
+           \ar[l]^-{\ensuremath{\lambda \Varid{begin}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}\;\alt{\cdot }{\cdot }\;\Varid{id}\;\Varid{alfa}\lambda \Varid{end}\;\{\mskip1.5mu \Varid{equation}\mskip1.5mu\}}}
 }
 \end{eqnarray*}
 
+\textbf{alfa} definido como sendo:
+\[alfa (a,(avg,l)) = (a + l \times avg)/(l+1)\]\\
 
+Substituindo na fórmula de fokkinga:
+\begin{eqnarray*}
+\start
+%
+\just\equiv{ Fokkinga }
+%
+    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\cata{\conj{\alt{\Varid{id}}{\Varid{alfa}}}{\alt{\underline{\mathrm{1}}}{\succ \comp \p2\comp \p2}}}}     
+%
+\just\equiv{ Lei da Troca }
+%
+    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\cata{\alt{\conj{\Varid{id}}{\underline{\mathrm{1}}}}{\conj{\Varid{alfa}}{\succ \comp \p2\comp \p2}}}}
+\qed
+\end{eqnarray*}
+
+Conluindo e chegando na definição:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{avg}\mathrel{=}\p1\comp \Varid{avg\char95 aux}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
-
+Foi preciso definir o catamorfismo para listas não vazias:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{18}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{43}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{outLsingl}\;[\mskip1.5mu \Varid{a}\mskip1.5mu]{}\<[18]%
+\>[B]{}\Varid{outLSingl}\;[\mskip1.5mu \Varid{a}\mskip1.5mu]{}\<[18]%
 \>[18]{}\mathrel{=}i_1\;(\Varid{a}){}\<[E]%
 \\
-\>[B]{}\Varid{outLsingl}\;(\Varid{a}\mathbin{:}\Varid{x})\mathrel{=}i_2\;(\Varid{a},\Varid{x}){}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\Varid{cataLsingl}\;\Varid{g}\mathrel{=}\Varid{g}\comp \Varid{recList}\;(\Varid{cataLsingl}\;\Varid{g})\comp \Varid{outLsingl}{}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\Varid{avg\char95 aux}\mathrel{=}\Varid{cataLsingl}\;\alt{\conj{\Varid{id}}{\underline{\mathrm{1}}}}{\conj{\Varid{alfa}}{\succ \comp \p2\comp \p2}}\;\mathbf{where}{}\<[E]%
+\>[B]{}\Varid{outLSingl}\;(\Varid{a}\mathbin{:}\Varid{x})\mathrel{=}i_2\;(\Varid{a},\Varid{x}){}\<[E]%
+\\
+\>[B]{}\Varid{cataLSingl}\;\Varid{g}\mathrel{=}\Varid{g}\comp \Varid{recList}\;(\Varid{cataLSingl}\;\Varid{g})\comp \Varid{outLSingl}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+Definição final:
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{43}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{avg\char95 aux}\mathrel{=}\Varid{cataLSingl}\;\alt{\conj{\Varid{id}}{\underline{\mathrm{1}}}}{\conj{\Varid{alfa}}{\succ \comp \p2\comp \p2}}\;\mathbf{where}{}\<[E]%
 \\
 \>[B]{}\hsindent{43}{}\<[43]%
 \>[43]{}\Varid{alfa}\;(\Varid{a},(\Varid{avg},\Varid{l}))\mathrel{=}((\Varid{a}\mathbin{+}(\Varid{avg}\mathbin{*}\Varid{l}))\mathbin{/}(\Varid{l}\mathbin{+}\mathrm{1})){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+
 Solução para árvores de tipo \LTree:
+
+Tentamos seguir a mesma estratégia da questão anterior em desenvolver por gráficos,
+porém a resolução final que chegamos não compila, e não sabemos onde possa estar o erro.
+Entretanto, segue o desenvolvimento.
+
+Começamos por desenvolver os gráficos para LTree de:
+
+\textbf{length} que calcula a quantidade de folhas, definido graficamente como:
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\mathsf{LTree}\;\N_0}
+           \ar[d]_-{\ensuremath{\length }}
+&
+    \ensuremath{\N_0\mathbin{+}((\mathsf{LTree}\;\N_0)\mathbin{\uparrow}\mathrm{2})}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\conj{\Varid{avg}}{\length }\mathbin{\uparrow}\mathrm{2})}}
+           \ar[l]_-{\ensuremath{\Varid{inLTree}}}
+\\
+     \ensuremath{\N_0}
+&
+     \ensuremath{\N_0\mathbin{+}(((\mathsf{LTree}\;\N_0)\;\Conid{X}\;(\mathsf{LTree}\;\N_0))\mathbin{\uparrow}\mathrm{2})}
+           \ar[l]^-{\ensuremath{\alt{\underline{\mathrm{1}}}{\Varid{alflen}}}}
+}
+\end{eqnarray*}
+
+\textbf{avg} que calcula a média das folhas, definido graficamente como:
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\mathsf{LTree}\;\N_0}
+           \ar[d]_-{\ensuremath{\Varid{avg}}}
+&
+    \ensuremath{\N_0\mathbin{+}((\mathsf{LTree}\;\N_0)\mathbin{\uparrow}\mathrm{2})}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\conj{\Varid{avg}}{\length }\mathbin{\uparrow}\mathrm{2})}}
+           \ar[l]_-{\ensuremath{\Varid{inLTree}}}
+\\
+     \ensuremath{\N_0}
+&
+     \ensuremath{\N_0\mathbin{+}(((\mathsf{LTree}\;\N_0)\;\Conid{X}\;(\mathsf{LTree}\;\N_0))\mathbin{\uparrow}\mathrm{2})}
+           \ar[l]^-{\ensuremath{\alt{\Conid{Leaf}}{\Varid{alfavg}}}}
+}
+\end{eqnarray*}
+
+Substituindo na definição, e chegando na nossa resolução: 
+\begin{eqnarray*}
+\start
+%
+\just\equiv{ Fokkinga }
+%
+    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\llparenthesis\, \conj{\alt{\Conid{Leaf}}{\Varid{alfavg}}}{\alt{\underline{\mathrm{1}}}{\Varid{alflen}}}\,\rrparenthesis\lambda ;\mathbf{where}\lambda ;\Varid{alfavg}\;(\Varid{avg},\Varid{len})\mathrel{=}\Varid{avg}\mathbin{/}\Varid{len}\;\Varid{alflen}\;((e_1 ,\Varid{d1}),(e_2 ,\Varid{d2}))\mathrel{=}e_2 \mathbin{+}\Varid{d2}}     
+%
+\just\equiv{ Lei da Troca }
+%
+    \ensuremath{\conj{\Varid{avg}}{\length }\mathrel{=}\llparenthesis\, \alt{\conj{\Conid{Leaf}}{\underline{\mathrm{1}}}}{\conj{\Varid{alfavg}}{\Varid{alflen}}}\,\rrparenthesis}\;where\;
+     alfavg(avg,len) = avg/len
+     alflen((e1,d1),(e2,d2)) = e2 + d2
+\qed
+\end{eqnarray*}
+
+
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{4}{@{}>{\hspre}l<{\hspost}@{}}%
