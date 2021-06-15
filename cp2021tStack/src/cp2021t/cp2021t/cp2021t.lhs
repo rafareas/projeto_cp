@@ -1214,16 +1214,19 @@ Começamos por desenvolver os gráficos para LTree de:
     |LTree Nat0|
            \ar[d]_-{|length|}
 &
-    |Nat0 + 2^{LTree Nat0}|
-           \ar[d]^{|id + 2^{split (avg) (length)}|}
+    |Nat0 + (LTree Nat0)**|
+           \ar[d]^{|id + (split (avg) (length))**|}
            \ar[l]_-{|inLTree|}
 \\
      |Nat0|
 &
-     |Nat0 + 2^{(LTree Nat0) X (LTree Nat0)}|
+     |Nat0 + ((LTree Nat0) X (LTree Nat0))**|
            \ar[l]^-{|either (const 1) (alflen)|}
 }
 \end{eqnarray*}
+
+Definição de alflen: 
+\[alfalen((e1,d1),(e2,d2)) = add(e2,d2)\]\\
 
 \textbf{avg} que calcula a média das folhas, definido graficamente como:
 \begin{eqnarray*}
@@ -1231,16 +1234,19 @@ Começamos por desenvolver os gráficos para LTree de:
     |LTree Nat0|
            \ar[d]_-{|avg|}
 &
-    |Nat0 + 2^{LTree Nat0}|
-           \ar[d]^{|id + 2^{split (avg) (length)}|}
+    |Nat0 + (LTree Nat0)**|
+           \ar[d]^{|id + (split (avg) (length))**|}
            \ar[l]_-{|inLTree|}
 \\
      |Nat0|
 &
-     |Nat0 + 2^{(LTree Nat0) X (LTree Nat0)}
+     |Nat0 + ((LTree Nat0) X (LTree Nat0))**|
            \ar[l]^-{|either (Leaf) (alfavg)|}
 }
 \end{eqnarray*}
+
+Definição de alfavg:
+\[alfavg(avg,len) = avg/len\]\\
 
 Substituindo na definição, e chegando na nossa resolução: 
 \begin{eqnarray*}
@@ -1248,15 +1254,11 @@ Substituindo na definição, e chegando na nossa resolução:
 %
 \just\equiv{ Fokkinga }
 %
-    |split (avg) (length) = cataLTree(split (either (Leaf) (alfavg)) (either (const 1) (alflen))) where|
-       |alfavg(avg,len) = avg/len|
-       |alflen((e1,d1),(e2,d2)) = e2 + d2|     
+    |split (avg) (length) = cataLTree(split (either (Leaf) (alfavg)) (either (const 1) (alflen)))| 
 %
 \just\equiv{ Lei da Troca }
 %
-    |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen))) where|
-       |alfavg(avg,len) = avg/len|
-       |alflen((e1,d1),(e2,d2)) = e2 + d2|
+    |split (avg) (length) = cataLTree(either (split (Leaf) (const 1)) (split (alfavg) (alflen)))| 
 \qed
 \end{eqnarray*}
 
