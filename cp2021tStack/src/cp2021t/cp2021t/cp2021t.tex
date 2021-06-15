@@ -369,9 +369,9 @@ o ``kit'' básico, escrito em \Haskell, para realizar o trabalho. Basta executar
 \noindent Abra o ficheiro \texttt{cp2021t.lhs} no seu editor de texto preferido
 e verifique que assim é: todo o texto que se encontra dentro do ambiente
 \begin{quote}\small\tt
-\text{\tt \char92{}begin\char123{}code\char125{}}
+\text{\ttfamily \char92{}begin\char123{}code\char125{}}
 \\ ... \\
-\text{\tt \char92{}end\char123{}code\char125{}}
+\text{\ttfamily \char92{}end\char123{}code\char125{}}
 \end{quote}
 é seleccionado pelo \GHCi\ para ser executado.
 
@@ -403,15 +403,15 @@ geração de gráficos 2D:
     $ cabal install QuickCheck gloss --lib
 \end{Verbatim}
 Para testar uma propriedade \QuickCheck~\ensuremath{\Varid{prop}}, basta invocá-la com o comando:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~~~~~\char62{}~quickCheck~prop\\
-\tt ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~100~tests\char46{}
+\ttfamily ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~100~tests\char46{}
 \end{tabbing}
 Pode-se ainda controlar o número de casos de teste e sua complexidade,
 como o seguinte exemplo mostra:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~~~~~\char62{}~quickCheckWith~stdArgs~\char123{}~maxSuccess~\char61{}~200\char44{}~maxSize~\char61{}~10~\char125{}~prop\\
-\tt ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~200~tests\char46{}
+\ttfamily ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~200~tests\char46{}
 \end{tabbing}
 Qualquer programador tem, na vida real, de ler e analisar (muito!) código
 escrito por outros. No anexo \ref{sec:codigo} disponibiliza-se algum
@@ -430,7 +430,7 @@ Um projeto criado com o Stack possui uma estrutura de pastas muito específica:
 \end{itemize}
 
 Pode aceder ao \GHCi\ utilizando o comando:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~stack~ghci
 \end{tabbing}
 
@@ -1061,9 +1061,9 @@ a menos de um erro de 0.1 milésimas:
 \Problema	(\textbf{NB}: Esta questão é \textbf{opcional} e funciona como \textbf{valorização} apenas para os alunos que desejarem fazê-la.) 
 
 \vskip 1em \noindent
-Existem muitas linguagens funcionais para além do \Haskell, que é a linguagem usada neste trabalho prático. Uma delas é o \Fsharp\ da Microsoft. Na directoria \text{\tt fsharp} encontram-se os módulos \Cp, \Nat\ e \LTree\ codificados em \Fsharp. O que se pede é a biblioteca \BTree\ escrita na mesma linguagem.
+Existem muitas linguagens funcionais para além do \Haskell, que é a linguagem usada neste trabalho prático. Uma delas é o \Fsharp\ da Microsoft. Na directoria \text{\ttfamily fsharp} encontram-se os módulos \Cp, \Nat\ e \LTree\ codificados em \Fsharp. O que se pede é a biblioteca \BTree\ escrita na mesma linguagem.
 
-Modo de execução: o código que tiverem produzido nesta pergunta deve ser colocado entre o \text{\tt \char92{}begin\char123{}verbatim\char125{}} e o \text{\tt \char92{}end\char123{}verbatim\char125{}} da correspondente parte do anexo \ref{sec:resolucao}. Para além disso, os grupos podem demonstrar o código na oral.
+Modo de execução: o código que tiverem produzido nesta pergunta deve ser colocado entre o \text{\ttfamily \char92{}begin\char123{}verbatim\char125{}} e o \text{\ttfamily \char92{}end\char123{}verbatim\char125{}} da correspondente parte do anexo \ref{sec:resolucao}. Para além disso, os grupos podem demonstrar o código na oral.
 
 \newpage
 
@@ -1399,7 +1399,7 @@ Propriedades e \emph{main}:
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{runBezier}\mathbin{::}\fun{IO}\;(){}\<[E]%
 \\
-\>[B]{}\Varid{runBezier}\mathrel{=}\Varid{play}\;(\Conid{InWindow}\;\text{\tt \char34 Bézier\char34}\;(\mathrm{600},\mathrm{600})\;(\mathrm{0},{}\<[53]%
+\>[B]{}\Varid{runBezier}\mathrel{=}\Varid{play}\;(\Conid{InWindow}\;\text{\ttfamily \char34 Bézier\char34}\;(\mathrm{600},\mathrm{600})\;(\mathrm{0},{}\<[53]%
 \>[53]{}\mathrm{0})){}\<[E]%
 \\
 \>[B]{}\hsindent{3}{}\<[3]%
@@ -1419,7 +1419,7 @@ envolvendo \gloss{Gloss}. Nesse caso, o teste em causa deve fazer parte de uma f
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{main}\mathrel{=}\Varid{runBezier}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{run}\mathrel{=}\mathbf{do}\;\{\mskip1.5mu \Varid{system}\;\text{\tt \char34 ghc~cp2021t\char34};\Varid{system}\;\text{\tt \char34 ./cp2021t\char34}\mskip1.5mu\}{}\<[E]%
+\>[B]{}\Varid{run}\mathrel{=}\mathbf{do}\;\{\mskip1.5mu \Varid{system}\;\text{\ttfamily \char34 ghc~cp2021t\char34};\Varid{system}\;\text{\ttfamily \char34 ./cp2021t\char34}\mskip1.5mu\}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1555,35 +1555,143 @@ São dadas:
 \end{hscode}\resethooks
 Definir:
 
+
+Usando a Definição do inExpAr para chegar na definição do outExpAr
+\begin{eqnarray*}
+\start
+  outExpAr . inExpAr = id 
+
+%
+\just\equiv{ Definição de inExpAr := [const x,num_ops]}
+%
+
+  outExpAr . [cont x,num_ops] = id 
+
+%
+\just\equiv{Fusão-+}
+%
+
+  [outExpAr . const x, outExpAr . num_ops] = id
+
+%
+\just\equiv{Universal-+}
+%
+
+        \ensuremath{\begin{lcbr}\Varid{outExpAr}\comp \underline{\Varid{x}}\mathrel{=}i_1\\\Varid{outExpAr}\comp \Varid{num\char95 ops}\mathrel{=}i_2\end{lcbr}}
+
+%
+\just\equiv{Substituição: num_ ops}
+%
+
+        \ensuremath{\begin{lcbr}\Varid{outExpAr}\comp \underline{\Varid{x}}\mathrel{=}i_1\\\Varid{outExpAr}\comp [\mskip1.5mu \Conid{N},\Varid{ops}\mskip1.5mu]\mathrel{=}i_2\end{lcbr}}
+
+%
+\just\equiv{Fusão-+}
+%
+
+    
+	outExpAr . (const x) = i1 \quad \wedge \quad [outExpAr . N, outExpAr . ops] = i2
+	
+
+%
+\just\equiv{Universal-+}
+%
+
+		outExpAr . (const x) = i1
+    \quad \wedge \quad
+		outExpAr . N = i2 . i1
+    \quad \wedge \quad
+    outExpAr . (ops) = i2 . i2
+
+
+%
+\just\equiv{Substituição ops}
+%
+
+        
+		outExpAr . (const x) = i1
+    \quad \wedge \quad
+		outExpAr . N = i2 . i1
+    \quad \wedge \quad
+    outExpAr . [bin , uncurry Un] = i2 . i2
+  
+
+%
+\just\equiv{Fusão-+}
+%
+
+        
+		outExpAr . (const x) = i1
+	\quad \wedge \quad
+		outExpAr . N = i2 . i1
+	\quad \wedge \quad \\
+    [outExpAr . bin , outExpAr . uncurry Un] = i2 . i2
+   
+
+%
+\just\equiv{Universal-+, k:=i2.i2, f:=outExpAr.bin, g:=outExpAr . uncurry Un}
+%
+
+      
+		outExpAr . (const x) = i1
+	\quad \wedge \quad
+		outExpAr . N = i2 . i1
+	\quad \wedge \quad \\
+    [outExpAr . bin , outExpAr . uncurry Un] = i2 . i2
+   
+
+%
+\just\equiv{Universal-+, k:=i2.i2, f:=outExpAr.bin, g:=outExpAr . uncurry Un}
+%
+
+        
+		outExpAr . (const x) = i1
+	\quad \wedge \quad
+		outExpAr . N = i2 . i1
+	\quad \wedge \quad \\
+    outExpAr . (bin) = i2 . i2 . i1 
+   \quad \wedge \quad 
+    outExpAr . (uncurry Un) = i2 . i2 . i2 
+   
+
+%
+\just\equiv{Igualdade extensional, Def-comp}
+%
+
+        
+		outExpAr (const x) = i1 x
+   \quad \wedge \quad
+		outExpAr (N a) = i2(i1 x)
+   \quad \wedge \quad \\
+    outExpAr (Bin op a b) = i2(i2(i1(op,(a,b)))  
+   \quad \wedge \quad
+    outExpAr (Un \: op \: a) = i2(i2(i2(op,a))) 
+   
+\\
+\\
+
+Chegando assim, na definição do outExpAr:
+
+
+\qed
+\end{eqnarray*}
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{20}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{26}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{30}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{13}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{25}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\mbox{\onelinecomment outExpAr = undefined}{}\<[E]%
+\>[B]{}\Varid{outExpAr}\;\Varid{x}{}\<[13]%
+\>[13]{}\mathrel{=}i_1\;\Varid{x}{}\<[E]%
 \\
-\>[B]{}\Varid{outExpAr}\;\Varid{x}\mathrel{=}i_1\;\Varid{x}{}\<[20]%
-\>[20]{}\mbox{\onelinecomment  tentar  outExpAr x = i1 x }{}\<[E]%
+\>[B]{}\Varid{outExpAr}\;(\Conid{N}\;\Varid{a})\mathrel{=}i_2\;(i_1\;\Varid{a}){}\<[E]%
 \\
-\>[B]{}\Varid{outExpAr}\;(\Conid{N}\;\Varid{a})\mathrel{=}i_1\;(i_2\;\Varid{a}){}\<[E]%
+\>[B]{}\Varid{outExpAr}\;(\Conid{Bin}\;\Varid{op}\;\Varid{a}\;\Varid{b})\mathrel{=}{}\<[25]%
+\>[25]{}i_2\;(i_2\;(i_1\;(\Varid{op},(\Varid{a},\Varid{b})))){}\<[E]%
 \\
-\>[B]{}\Varid{outExpAr}\;(\Conid{Bin}\;\Conid{Sum}\;\Varid{a}\;\Varid{b})\mathrel{=}{}\<[26]%
-\>[26]{}i_2\;(i_2\;(i_1\;(\Conid{Sum},(\Varid{a},\Varid{b})))){}\<[E]%
-\\
-\>[B]{}\Varid{outExpAr}\;(\Conid{Bin}\;\Conid{Product}\;\Varid{a}\;\Varid{b})\mathrel{=}{}\<[30]%
-\>[30]{}i_2\;(i_2\;(i_1\;(\Conid{Product},(\Varid{a},\Varid{b})))){}\<[E]%
-\\
-\>[B]{}\Varid{outExpAr}\;(\Conid{Un}\;\Conid{Negate}\;\Varid{a})\mathrel{=}i_2\;(i_2\;(i_2\;(\Conid{Negate},\Varid{a}))){}\<[E]%
-\\
-\>[B]{}\Varid{outExpAr}\;(\Conid{Un}\;\Conid{E}\;\Varid{a})\mathrel{=}i_2\;(i_2\;(i_2\;(\Conid{E},\Varid{a}))){}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
+\>[B]{}\Varid{outExpAr}\;(\Conid{Un}\;\Varid{op}\;\Varid{a})\mathrel{=}i_2\;(i_2\;(i_2\;(\Varid{op},\Varid{a}))){}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{recExpAr}\;\Varid{x}\mathrel{=}\Varid{baseExpAr'}\;\Varid{id}\;\Varid{x}{}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
-\\
+\\[\blanklineskip]%
 \>[B]{}\Varid{g\char95 eval\char95 exp}\mathrel{=}\bot {}\<[E]%
 \\
 \>[B]{}\mbox{\onelinecomment }{}\<[E]%
@@ -1870,9 +1978,9 @@ Substituindo na definição, e chegando na nossa resolução:
 \end{hscode}\resethooks
 
 \subsection*{Problema 5}
-Inserir em baixo o código \Fsharp\ desenvolvido, entre \text{\tt \char92{}begin\char123{}verbatim\char125{}} e \text{\tt \char92{}end\char123{}verbatim\char125{}}:
+Inserir em baixo o código \Fsharp\ desenvolvido, entre \text{\ttfamily \char92{}begin\char123{}verbatim\char125{}} e \text{\ttfamily \char92{}end\char123{}verbatim\char125{}}:
 
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 
 \end{tabbing}
 
