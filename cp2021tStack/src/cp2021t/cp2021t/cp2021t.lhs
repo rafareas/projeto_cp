@@ -1261,7 +1261,7 @@ A Recursividade mútua foi realizada entre:
            \ar[d]_-{|length|}
 &
     |Nat0 + Nat0 X Nat0*|
-           \ar[d]^{|id + id X split (avg) (length)|}
+           \ar[d]^{|id + id X <avg,length>|}
            \ar[l]_-{|id = either (singl) (cons)|}
 \\
      |Nat0|
@@ -1279,7 +1279,7 @@ A Recursividade mútua foi realizada entre:
            \ar[d]_-{|avg|}
 &
     |Nat0 + Nat0 X Nat0*|
-           \ar[d]^{|id + id X split (avg) (length)|}
+           \ar[d]^{|id + id X <avg,length>|}
            \ar[l]_-{|id = either (singl) (cons)|}
 \\
      |Nat0|
