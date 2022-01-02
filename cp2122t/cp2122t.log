@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.12.27)  30 DEC 2021 21:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.12.27)  2 JAN 2022 16:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1070,11 +1070,7 @@ Overfull \hbox (12.57095pt too wide) in paragraph at lines 1422--1517
 
 \openout5 = `cp2122t.ptb'.
 
-\openout5 = `cp2122t.ptb'.
-
  [14]
-\openout5 = `cp2122t.ptb'.
-
 \openout5 = `cp2122t.ptb'.
 
 \openout5 = `cp2122t.ptb'.
@@ -1100,6 +1096,10 @@ Overfull \hbox (12.57095pt too wide) in paragraph at lines 1422--1517
 
 \openout5 = `cp2122t.ptb'.
 
+\openout5 = `cp2122t.ptb'.
+
+\openout5 = `cp2122t.ptb'.
+
  (./cp2122t.ind [16] [17
 
 
@@ -1117,10 +1117,10 @@ Package rerunfilecheck Info: File `cp2122t.out' has not changed.
 (rerunfilecheck)             Checksum: 8BC6A9D57A672C345983D0C66B61A3D9;420.
  ) 
 Here is how much of TeX's memory you used:
- 13809 strings out of 481159
- 203517 string characters out of 5913524
+ 13814 strings out of 481159
+ 203589 string characters out of 5913524
  601141 words of memory out of 5000000
- 30332 multiletter control sequences out of 15000+600000
+ 30337 multiletter control sequences out of 15000+600000
  443226 words of font info for 143 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
  72i,18n,77p,3294b,508s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1152,7 +1152,7 @@ f-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts
 alatino/uplri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/xypic/xya
 tip10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
 
-Output written on cp2122t.pdf (18 pages, 350957 bytes).
+Output written on cp2122t.pdf (18 pages, 351245 bytes).
 PDF statistics:
  504 PDF objects out of 1000 (max. 8388607)
  418 compressed objects within 5 object streams

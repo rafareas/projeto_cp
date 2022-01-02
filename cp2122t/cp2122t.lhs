@@ -196,6 +196,7 @@ import Data.Hashable
 import Test.QuickCheck hiding ((><),choose,collect)
 import qualified Test.QuickCheck as QuickCheck
 import System.Posix (DL(Null))
+import GHC.Float.RealFracMethods (floorFloatInt)
 -- import Graphics.Gloss
 -- import Graphics.Gloss.Interface.Pure.Game
 
@@ -1160,7 +1161,11 @@ hyloNEList h g = cataNEList h . anaNEList g
 Gene do anamorfismo:
 \begin{code}
 g_list2LTree [a] = i1(a)
-g_list2LTree (h:t) = i2([h],t)
+g_list2LTree l = i2(x,y)
+                where 
+                      x = take r l 
+                      y = drop r l 
+                      r = div (length l) 2
 \end{code}
 Gene do catamorfismo:
 \begin{code}

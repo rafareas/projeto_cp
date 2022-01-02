@@ -1682,10 +1682,24 @@ Listas não-vazias:
 Gene do anamorfismo:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{17}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{23}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{g\char95 list2LTree}\;[\mskip1.5mu \Varid{a}\mskip1.5mu]\mathrel{=}i_1\;(\Varid{a}){}\<[E]%
 \\
-\>[B]{}\Varid{g\char95 list2LTree}\;(\Varid{h}\mathbin{:}\Varid{t})\mathrel{=}i_2\;([\mskip1.5mu \Varid{h}\mskip1.5mu],\Varid{t}){}\<[E]%
+\>[B]{}\Varid{g\char95 list2LTree}\;\Varid{l}\mathrel{=}i_2\;(\Varid{x},\Varid{y}){}\<[E]%
+\\
+\>[B]{}\hsindent{17}{}\<[17]%
+\>[17]{}\mathbf{where}{}\<[E]%
+\\
+\>[17]{}\hsindent{6}{}\<[23]%
+\>[23]{}\Varid{x}\mathrel{=}\Varid{take}\;\Varid{r}\;\Varid{l}{}\<[E]%
+\\
+\>[17]{}\hsindent{6}{}\<[23]%
+\>[23]{}\Varid{y}\mathrel{=}\Varid{drop}\;\Varid{r}\;\Varid{l}{}\<[E]%
+\\
+\>[17]{}\hsindent{6}{}\<[23]%
+\>[23]{}\Varid{r}\mathrel{=}\length \;\Varid{l}\div \mathrm{2}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Gene do catamorfismo:
