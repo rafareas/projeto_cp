@@ -1246,8 +1246,8 @@ Inserir a partir daqui o resto da resolução deste problema:
 \begin{code}
 pairL :: [a] -> [(a,a)]
 pairL = anaList g where
-  g []  = i1()
-  g (x:y:z) = i2((x,y),(y:z))
+  g [x]  = i1(x,x)
+  g (x:y:z) = i2((x,y),y:z)
 \end{code}
 
 \begin{code}
