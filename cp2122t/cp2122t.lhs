@@ -1170,7 +1170,7 @@ g_list2LTree l = i2(x,y)
 Gene do catamorfismo:
 \begin{code}
 g_lTree2MTree :: Hashable c => Either c (FTree Integer (Integer, c), FTree Integer (Integer, c)) -> FTree Integer (Integer, c)
-g_lTree2MTree = undefined
+g_lTree2MTree = undefined   
 \end{code}
 Gene de |mroot| ("get Merkle root"):
 \begin{code}
@@ -1246,7 +1246,8 @@ Inserir a partir daqui o resto da resolução deste problema:
 \begin{code}
 pairL :: [a] -> [(a,a)]
 pairL = anaList g where
-  g = undefined
+  g []  = i1()
+  g (x:y:z) = i2((x,y),(y:z))
 \end{code}
 
 \begin{code}
