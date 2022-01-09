@@ -197,6 +197,7 @@ import Test.QuickCheck hiding ((><),choose,collect)
 import qualified Test.QuickCheck as QuickCheck
 import System.Posix (DL(Null))
 import GHC.Float.RealFracMethods (floorFloatInt)
+import Control.Arrow (Arrow(first))
 -- import Graphics.Gloss
 -- import Graphics.Gloss.Interface.Pure.Game
 
@@ -1170,7 +1171,9 @@ g_list2LTree l = i2(x,y)
 Gene do catamorfismo:
 \begin{code}
 g_lTree2MTree :: Hashable c => Either c (FTree Integer (Integer, c), FTree Integer (Integer, c)) -> FTree Integer (Integer, c)
-g_lTree2MTree = undefined   
+g_lTree2MTree = inFTree . (split Main.hash id -|- split k id)
+                           where k = concHash . (firsts >< firsts) . (outFTree >< outFTree) 
+
 \end{code}
 Gene de |mroot| ("get Merkle root"):
 \begin{code}
@@ -1246,8 +1249,8 @@ Inserir a partir daqui o resto da resolução deste problema:
 \begin{code}
 pairL :: [a] -> [(a,a)]
 pairL = anaList g where
-  g [x]  = i1(x,x)
-  g (x:y:z) = i2((x,y),y:z)
+  g [x]     = i1()
+  g (x:y:z) = i2((x,y), y:z)
 \end{code}
 
 \begin{code}
