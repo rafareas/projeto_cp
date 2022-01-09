@@ -1705,10 +1705,14 @@ Gene do anamorfismo:
 Gene do catamorfismo:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{28}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{g\char95 lTree2MTree}\mathbin{::}\Conid{Hashable}\;\Varid{c}\Rightarrow \Varid{c}+({\FTree}\;\mathbb{Z}\;(\mathbb{Z},\Varid{c}),{\FTree}\;\mathbb{Z}\;(\mathbb{Z},\Varid{c}))\to {\FTree}\;\mathbb{Z}\;(\mathbb{Z},\Varid{c}){}\<[E]%
 \\
-\>[B]{}\Varid{g\char95 lTree2MTree}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{g\char95 lTree2MTree}\mathrel{=}\mathsf{in}\comp (\conj{\Varid{\Conid{Main}.hash}}{\Varid{id}}+\conj{\Varid{k}}{\Varid{id}}){}\<[E]%
+\\
+\>[B]{}\hsindent{28}{}\<[28]%
+\>[28]{}\mathbf{where}\;\Varid{k}\mathrel{=}\Varid{concHash}\comp (\Varid{firsts}\times\Varid{firsts})\comp (\mathsf{out}\times\mathsf{out}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Gene de \ensuremath{\Varid{mroot}} ("get Merkle root"):
@@ -1825,13 +1829,18 @@ Inserir a partir daqui o resto da resolução deste problema:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{3}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{13}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{pairL}\mathbin{::}[\mskip1.5mu \Varid{a}\mskip1.5mu]\to [\mskip1.5mu (\Varid{a},\Varid{a})\mskip1.5mu]{}\<[E]%
 \\
 \>[B]{}\Varid{pairL}\mathrel{=}\anaList{\Varid{g}}\;\mathbf{where}{}\<[E]%
 \\
 \>[B]{}\hsindent{3}{}\<[3]%
-\>[3]{}\Varid{g}\mathrel{=}\bot {}\<[E]%
+\>[3]{}\Varid{g}\;[\mskip1.5mu \Varid{x}\mskip1.5mu]{}\<[13]%
+\>[13]{}\mathrel{=}i_1\;(){}\<[E]%
+\\
+\>[B]{}\hsindent{3}{}\<[3]%
+\>[3]{}\Varid{g}\;(\Varid{x}\mathbin{:}\Varid{y}\mathbin{:}\Varid{z})\mathrel{=}i_2\;((\Varid{x},\Varid{y}),\Varid{y}\mathbin{:}\Varid{z}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
