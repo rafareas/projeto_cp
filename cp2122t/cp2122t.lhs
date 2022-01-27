@@ -1159,15 +1159,20 @@ anaNEList  g   = inNEList . recNEList (anaNEList g) . g
 
 hyloNEList h g = cataNEList h . anaNEList g
 \end{code}
+Definição feita com base na biblioteca \emph{List.hs}\\
+
 Gene do anamorfismo:
 \begin{code}
 g_list2LTree [a] = i1(a)
-g_list2LTree l = i2(x,y)
+g_list2LTree l = i2(r)
                 where 
-                      x = take r l 
-                      y = drop r l 
-                      r = div (length l) 2
+                      r = splitAt ((div (length l) 2)) l
 \end{code}
+Para a criação do gene decidiu-se dividir a Lista ao meio para gerar uma árvore mais equilibrada.
+Com este intuito, foi usada a função \emph{splitAt} que cria um tuplo com as duas metades da lista.
+O cálculo da metade é feito pelo uso da função \emph{div} com \emph{length l} e 2 como argumentos.\\
+
+
 Gene do catamorfismo:
 \begin{code}
 g_lTree2MTree :: Hashable c => Either c (FTree Integer (Integer, c), FTree Integer (Integer, c)) -> FTree Integer (Integer, c)
@@ -1177,7 +1182,7 @@ g_lTree2MTree = inFTree . (split Main.hash id -|- split k id)
 \end{code}
 Gene de |mroot| ("get Merkle root"):
 \begin{code}
-g_mroot = undefined
+g_mroot = firsts
 \end{code}
 Valorização:
 

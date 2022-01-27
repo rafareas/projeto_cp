@@ -1679,6 +1679,8 @@ Listas não-vazias:
 \>[B]{}\Varid{hyloNEList}\;\Varid{h}\;\Varid{g}\mathrel{=}\Varid{cataNEList}\;\Varid{h}\comp \Varid{anaNEList}\;\Varid{g}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+Definição feita com base na biblioteca \emph{List.hs}\\
+
 Gene do anamorfismo:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1687,21 +1689,20 @@ Gene do anamorfismo:
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{g\char95 list2LTree}\;[\mskip1.5mu \Varid{a}\mskip1.5mu]\mathrel{=}i_1\;(\Varid{a}){}\<[E]%
 \\
-\>[B]{}\Varid{g\char95 list2LTree}\;\Varid{l}\mathrel{=}i_2\;(\Varid{x},\Varid{y}){}\<[E]%
+\>[B]{}\Varid{g\char95 list2LTree}\;\Varid{l}\mathrel{=}i_2\;(\Varid{r}){}\<[E]%
 \\
 \>[B]{}\hsindent{17}{}\<[17]%
 \>[17]{}\mathbf{where}{}\<[E]%
 \\
 \>[17]{}\hsindent{6}{}\<[23]%
-\>[23]{}\Varid{x}\mathrel{=}\Varid{take}\;\Varid{r}\;\Varid{l}{}\<[E]%
-\\
-\>[17]{}\hsindent{6}{}\<[23]%
-\>[23]{}\Varid{y}\mathrel{=}\Varid{drop}\;\Varid{r}\;\Varid{l}{}\<[E]%
-\\
-\>[17]{}\hsindent{6}{}\<[23]%
-\>[23]{}\Varid{r}\mathrel{=}\length \;\Varid{l}\div \mathrm{2}{}\<[E]%
+\>[23]{}\Varid{r}\mathrel{=}\Varid{splitAt}\;(\length \;\Varid{l}\div \mathrm{2})\;\Varid{l}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+Para a criação do gene decidiu-se dividir a Lista ao meio para gerar uma árvore mais equilibrada.
+Com este intuito, foi usada a função \emph{splitAt} que cria um tuplo com as duas metades da lista.
+O cálculo da metade é feito pelo uso da função \emph{div} com \emph{length l} e 2 como argumentos.\\
+
+
 Gene do catamorfismo:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1719,7 +1720,7 @@ Gene de \ensuremath{\Varid{mroot}} ("get Merkle root"):
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{g\char95 mroot}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{g\char95 mroot}\mathrel{=}\Varid{firsts}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Valorização:
