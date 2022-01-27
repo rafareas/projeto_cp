@@ -1180,10 +1180,64 @@ g_lTree2MTree = inFTree . (split Main.hash id -|- split k id)
                            where k = concHash . (firsts >< firsts) . (outFTree >< outFTree) 
 
 \end{code}
+Para a definição do gene foi necessário a criação de dois diagramas para isolar os problemas.
+O primeiro é para a função \emph{lTree2MTree} que chamou-se de \emph{f}, 
+onde buscou isolar os valores da \emph{Leaf Tree} e montar a \emph{Merkle Tree} com eles.\\
+
+\begin{eqnarray*}
+    \xymatrix@@C=2cm{
+    LTree A\ar[r]^{outLTree} \ar[d]_{f} & A + (LTree A)^2\ar[d]^{id + f^2}\\
+    FTree \mathbb{Z} (\mathbb{Z}, A) & A + (FTree \mathbb{Z} (\mathbb{Z}, A))^2 \ar[l]_{g} \ar[d]^{<Main.hash,id>+id}\\
+    (\mathbb{Z}, A) + (\mathbb{Z}, (FTree \mathbb{Z} (\mathbb{Z}, A)))^2 \ar[u]^{inFTree} & (\mathbb{Z}, A) + (FTree \mathbb{Z} (\mathbb{Z}, A))^2 \ar[l]_{id+<k,id>}\\
+    }
+\end{eqnarray*}\\
+
+A procura do gene chamado de \emph{g}, chegou-se a definição:
+\begin{eqnarray}
+g = inFTree . (id + <k,id>) . (<Main.hash,id> + id) 
+\end{eqnarray}
+
+Aplicando a Lei Functor-+ (25) ficou com:
+\begin{eqnarray}
+g = inFTree . (<Main.hash,id> + <k,id>)  
+\end{eqnarray}
+
+Entretanto, agora é preciso definir a função \emph{k}.
+Esta função receberá um produto de 2 \emph{FTree} e devolverá um inteiro.
+Usou-se a mesma estratégia anterior: isolar os tipos e montar o resultado.
+Com isto foi feito o segundo diagrama:
+
+\begin{eqnarray*}
+    \xymatrix@@C=5cm{
+    (FTree \mathbb{Z} (\mathbb{Z},a))^2 \ar[r]^{outFTree \times outFTree} \ar[d]_{k} & 
+    ((\mathbb{Z},a)+ (\mathbb{Z},FTree^2))\times ((\mathbb{Z},a)+ (\mathbb{Z},FTree^2)) \ar[d]^{firsts \times firsts}\\
+    \mathbb{Z} & (\mathbb{Z},\mathbb{Z}) \ar[l]_{concHash} \\ 
+    }
+\end{eqnarray*}\\
+
+Chegando assim a definição de \emph{k}:
+
+\begin{eqnarray}
+k =  concHash . (firsts \times firsts) . (outFTree \times outFTree)
+\end{eqnarray}\\
+
 Gene de |mroot| ("get Merkle root"):
 \begin{code}
 g_mroot = firsts
 \end{code}
+
+Na função \emph{mroot} é pedido a raiz de uma \emph{Merkle Tree} dado sua Lista geradora.
+Para criar a \emph{Merkle Tree} a partir da Lista usa-se a função \emph{computeMerkleTree}.
+Logo, este catamorfismo só precisa isolar o valor da \emph{FTree} resultante:
+
+\begin{eqnarray*}
+    \xymatrix@@C=3cm{
+    FTree \mathbb{Z} (\mathbb{Z}, a) \ar[d]_{cata (gene)} \ar[r]^{outFTree} & 
+    (\mathbb{Z}, a) + (\mathbb{Z}, (FTree, FTree)) \ar[d]^{id+id \times cata^2}\\ 
+    \mathbb{Z} & (\mathbb{Z}, a) + (\mathbb{Z}, \mathbb{Z}) \ar[l]_{firsts = gene}
+    }
+\end{eqnarray*}\\
+
 Valorização:
 
 \begin{code}
