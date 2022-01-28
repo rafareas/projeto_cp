@@ -1238,6 +1238,10 @@ Logo, este catamorfismo só precisa isolar o valor da \emph{FTree} resultante:
     }
 \end{eqnarray*}\\
 
+(Problema 1.4) Quando se altera o valor de uma transação, o valor da \emph{mroot} também é alterdo pois
+ele se trata de um composição dos valores em suas raízes. 
+Logo, basta 1 valor mudar que o resultado se altera.\\
+
 Valorização:
 
 \begin{code}
@@ -1311,6 +1315,8 @@ pairL = anaList g where
   g [x]     = i1()
   g (x:y:z) = i2((x,y), y:z)
 \end{code}
+Como foi considerado listas com tamanho maior que 1, usou-se a lista única como critério de paragem.
+Definiu-se então o gene como agrupamento de pares.\\
 
 \begin{code}
 markMap :: [Pos] -> Map -> Map

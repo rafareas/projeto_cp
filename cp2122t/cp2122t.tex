@@ -1777,6 +1777,10 @@ Logo, este catamorfismo só precisa isolar o valor da \emph{FTree} resultante:
     }
 \end{eqnarray*}\\
 
+(Problema 1.4) Quando se altera o valor de uma transação, o valor da \emph{mroot} também é alterdo pois
+ele se trata de um composição dos valores em suas raízes. 
+Logo, basta 1 valor mudar que o resultado se altera.\\
+
 Valorização:
 
 \begin{hscode}\SaveRestoreHook
@@ -1898,6 +1902,8 @@ Inserir a partir daqui o resto da resolução deste problema:
 \>[3]{}\Varid{g}\;(\Varid{x}\mathbin{:}\Varid{y}\mathbin{:}\Varid{z})\mathrel{=}i_2\;((\Varid{x},\Varid{y}),\Varid{y}\mathbin{:}\Varid{z}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+Como foi considerado listas com tamanho maior que 1, usou-se a lista única como critério de paragem.
+Definiu-se então o gene como agrupamento de pares.\\
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
