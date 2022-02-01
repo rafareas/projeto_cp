@@ -198,7 +198,7 @@ import qualified Test.QuickCheck as QuickCheck
 import System.Posix (DL(Null))
 import GHC.Float.RealFracMethods (floorFloatInt)
 import Control.Arrow (Arrow(first))
-import PPC.Regs (toc)
+-- import PPC.Regs (toc)
 -- import Graphics.Gloss
 -- import Graphics.Gloss.Interface.Pure.Game
 
@@ -396,7 +396,7 @@ verificamos que a poderíamos escrever, em Haskell, da forma seguinte:
 wc_w :: [Char] -> Int
 wc_w []    = 0
 wc_w (c:l) =
-     if not (sep c) && lookahead_sep l then wc_w l + 1 else wc_w l
+     if not (sep c) && lookahead_sep (id l) then wc_w l + 1 else wc_w l
        where
           sep c = ( c == ' ' || c == '\n' || c == '\t')
           lookahead_sep []    = True
@@ -1270,27 +1270,38 @@ conquer = either head joinMerkleTree where
 wc_w_final :: [Char] -> Int
 wc_w_final = wrapper . worker
 worker = cataList (either g1 g2)
-wrapper = undefined
+
+wrapper :: (Integer,[Char])->Int
+wrapper = fromIntegral . p1  
+
 \end{code}
 Gene de |worker|:
 \begin{code}
-g1 = undefined
-g2 = undefined
+
+g1 :: b -> (Integer, [a])
+g1 = split (h1) (k1) 
+g2 = split (h2) (k2)
 \end{code}
 Genes |h = either h1 h2| e |k = either k1 k2| identificados no cálculo:
 \begin{code}
-h1 = undefined
-h2 = undefined
+h1 = zero
+h2 (a,(b,c)) = if not (sep a) && lookahead_sep c then succ b else b
+       where
+          sep c = ( c == ' ' || c == '\n' || c == '\t')
+          lookahead_sep []    = True
+          lookahead_sep (c:l) = sep c
 
-k1 = undefined
-k2 = undefined
+k1 = nil
+k2 (a,(b,c)) = cons (a,c)
 \end{code}
 
 \subsection*{Problema 3}
 
 \begin{code}
 inX :: Either u (i, (X u i, X u i)) -> X u i
-inX = either XLeaf (uncurry (uncurry Node)) 
+inX = either XLeaf (myUnc . flatr) 
+     where
+          myUnc (a,b,c) = Node a b c
 
 outX (XLeaf u) = Left u
 outX (Node i l r) = Right(i,(l,r))
