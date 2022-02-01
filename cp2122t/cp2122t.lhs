@@ -1289,16 +1289,16 @@ k2 = undefined
 
 \begin{code}
 inX :: Either u (i, (X u i, X u i)) -> X u i
-inX = undefined
+inX = either XLeaf (uncurry (uncurry Node)) 
 
-outX (XLeaf u) = undefined
-outX (Node i l r) = undefined
+outX (XLeaf u) = Left u
+outX (Node i l r) = Right(i,(l,r))
 
-baseX f h g = undefined
+baseX f h g = f -|- (g  >< (h >< h)) 
 
-recX f = undefined
+recX f = baseX id f id
 
-cataX g = undefined
+cataX g = g . (recX (cataX g)) . outX
 \end{code}
 
 Inserir a partir daqui o resto da resolução deste problema:
