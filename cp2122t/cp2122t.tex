@@ -1777,7 +1777,7 @@ Logo, este catamorfismo só precisa isolar o valor da \emph{FTree} resultante:
     }
 \end{eqnarray*}\\
 
-(Problema 1.4) Quando se altera o valor de uma transação, o valor da \emph{mroot} também é alterdo pois
+\textbf{(Problema 1.4)} Quando se altera o valor de uma transação, o valor da \emph{mroot} também é alterdo pois
 ele se trata de um composição dos valores em suas raízes. 
 Logo, basta 1 valor mudar que o resultado se altera.\\
 
@@ -1908,15 +1908,62 @@ Definiu-se então o gene como agrupamento de pares.\\
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{3}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{11}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{markMap}\mathbin{::}[\mskip1.5mu \Conid{Pos}\mskip1.5mu]\to \Conid{Map}\to \Conid{Map}{}\<[E]%
 \\
 \>[B]{}\Varid{markMap}\;\Varid{l}\mathrel{=}\cataList{\alt{\underline{\Varid{id}}}{f_2 }}\;(\Varid{pairL}\;\Varid{l})\;\mathbf{where}{}\<[E]%
 \\
 \>[B]{}\hsindent{3}{}\<[3]%
-\>[3]{}f_2 \mathrel{=}\bot {}\<[E]%
+\>[3]{}f_2 \mathrel{=}\Varid{mySub}\comp \Varid{sp}{}\<[E]%
+\\
+\>[B]{}\hsindent{3}{}\<[3]%
+\>[3]{}\Varid{sp}\mathrel{=}\conj{\uncurry{\Varid{toCell}}}{\p1}\times\Varid{id}{}\<[E]%
+\\
+\>[B]{}\hsindent{3}{}\<[3]%
+\>[3]{}\Varid{mySub}\;((\Varid{c},(\Varid{x},\Varid{y})),\Varid{g})\;\Varid{m}{}\<[E]%
+\\
+\>[3]{}\hsindent{8}{}\<[11]%
+\>[11]{}\mid (\Varid{m}\mathbin{!!}\Varid{y})\mathbin{!!}\Varid{x}\equiv \Conid{Blocked}\mathrel{=}\Varid{g}\;\Varid{m}{}\<[E]%
+\\
+\>[3]{}\hsindent{8}{}\<[11]%
+\>[11]{}\mid \Varid{otherwise}\mathrel{=}\Varid{subst}\;(\Varid{subst}\;\Varid{c}\;\Varid{x}\;(\Varid{g}\;\Varid{m}\mathbin{!!}\Varid{y}))\;\Varid{y}\;(\Varid{g}\;\Varid{m}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+
+Para definir a função \emph{f2} foi feito um diagrama para extrair o tipo de seus argumentos:
+
+\begin{eqnarray*}
+    \xymatrix@C=4cm{
+    (Pos,Pos)^+ \ar[d]_{f} \ar[r]^{outList} 
+    & nil + ((Pos,Pos),(Pos,Pos)^+) \ar[d]^{id+id \times f}\\ 
+    g & nil + ((Pos,Pos),g) \ar[l]_{[\underline{id}, f2]}\\
+    }
+\end{eqnarray*}
+
+Com o diagrama chegou-se a conclusão de que a função receberia \emph{((Pos,Pos),g)} 
+onde o primeiro tuplo se trata de 2 coordenadas que servirão para "marcar" o mapa 
+e \emph{g} se refere a uma função
+que devolve o mapa "marcado" com as posições na cauda da lista original. O tipo da mesma:
+
+\begin{eqnarray}
+g: Map \rightarrow Map
+\end{eqnarray}
+
+Entretanto, para as próximas coordenadas será preciso gerar o tipo \emph{Cell} 
+com as mesmas e "marcar" no mapa de acordo com a posição dada. Foi feito da seguinte forma:
+
+\begin{eqnarray*}
+    \xymatrix@C=4 cm{
+    ((Pos,Pos'), g) \ar[r]^{<uncurry.toCell, \pi 1> \times id} & 
+    ((Cell,Pos),g))
+    }
+\end{eqnarray*}
+
+Finalmente, foi criado a função auxiliar \emph{mySub} que dado este tuplo com esses tipos e um mapa
+como argumentos, devolverá o resultado desejado com auxílio da função \emph{subst} fornecida.
+Esta função também leva em conta se uma \emph{Cell} está \emph{Blocked} garantindo percorrer
+em apenas caminhos livres.\\
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%

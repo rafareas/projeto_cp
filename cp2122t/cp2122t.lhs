@@ -198,6 +198,7 @@ import qualified Test.QuickCheck as QuickCheck
 import System.Posix (DL(Null))
 import GHC.Float.RealFracMethods (floorFloatInt)
 import Control.Arrow (Arrow(first))
+import PPC.Regs (toc)
 -- import Graphics.Gloss
 -- import Graphics.Gloss.Interface.Pure.Game
 
@@ -1238,7 +1239,7 @@ Logo, este catamorfismo só precisa isolar o valor da \emph{FTree} resultante:
     }
 \end{eqnarray*}\\
 
-(Problema 1.4) Quando se altera o valor de uma transação, o valor da \emph{mroot} também é alterdo pois
+\textbf{(Problema 1.4)} Quando se altera o valor de uma transação, o valor da \emph{mroot} também é alterdo pois
 ele se trata de um composição dos valores em suas raízes. 
 Logo, basta 1 valor mudar que o resultado se altera.\\
 
@@ -1321,8 +1322,46 @@ Definiu-se então o gene como agrupamento de pares.\\
 \begin{code}
 markMap :: [Pos] -> Map -> Map
 markMap l = cataList (either (const id) f2) (pairL l) where
-  f2 = undefined
+  f2 = mySub . sp
+  sp = split (uncurry toCell) p1 >< id
+  mySub ((c,(x,y)), g) m 
+          | (m !! y) !! x == Blocked = g m
+          |otherwise = subst (subst c x (g m !! y)) y (g m)  
 \end{code}
+
+Para definir a função \emph{f2} foi feito um diagrama para extrair o tipo de seus argumentos:
+
+\begin{eqnarray*}
+    \xymatrix@@C=4cm{
+    (Pos,Pos)^+ \ar[d]_{f} \ar[r]^{outList} 
+    & nil + ((Pos,Pos),(Pos,Pos)^+) \ar[d]^{id+id \times f}\\ 
+    g & nil + ((Pos,Pos),g) \ar[l]_{[\underline{id}, f2]}\\
+    }
+\end{eqnarray*}
+
+Com o diagrama chegou-se a conclusão de que a função receberia \emph{((Pos,Pos),g)} 
+onde o primeiro tuplo se trata de 2 coordenadas que servirão para "marcar" o mapa 
+e \emph{g} se refere a uma função
+que devolve o mapa "marcado" com as posições na cauda da lista original. O tipo da mesma:
+
+\begin{eqnarray}
+g: Map \rightarrow Map
+\end{eqnarray}
+
+Entretanto, para as próximas coordenadas será preciso gerar o tipo \emph{Cell} 
+com as mesmas e "marcar" no mapa de acordo com a posição dada. Foi feito da seguinte forma:
+
+\begin{eqnarray*}
+    \xymatrix@@C=4 cm{
+    ((Pos,Pos'), g) \ar[r]^{<uncurry.toCell, \pi 1> \times id} & 
+    ((Cell,Pos),g))
+    }
+\end{eqnarray*}
+
+Finalmente, foi criado a função auxiliar \emph{mySub} que dado este tuplo com esses tipos e um mapa
+como argumentos, devolverá o resultado desejado com auxílio da função \emph{subst} fornecida.
+Esta função também leva em conta se uma \emph{Cell} está \emph{Blocked} garantindo percorrer
+em apenas caminhos livres.\\
 
 \begin{code}
 scout :: Map -> Pos -> Pos -> Int -> [[Pos]]
