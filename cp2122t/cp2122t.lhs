@@ -1295,14 +1295,26 @@ k1 = nil
 k2 (a,(b,c)) = cons (a,c)
 \end{code}
 
+O modelo worker/wrapper baseia-se em o worker produzir resultados auxiliares, onde depois o wrapper irá fazer o filtro do resultado pretendido. Para a questão , foi idealizado o worker produzir um Tuplo ( Int , String ) de forma que o wrapper irá retirar o Int ( número de palavras) pretendido. 
+Para a produção do tuplo , foi necessário colocar as funções “wc_w” e a função “id”  em recursividade mútua. Para o funcionamento desta recursividade , foi necessário alterar a função “wc_w”.  A mudança foi especificamente na chamada da função “lookahead_sep” , em vez de correr : lookahead_sep  ( string), correr a função id na chamada, tendo como resultado : lookahead_sep( id string).
+
+Segue o desenvolvimento por meio de diagramas:
+\begin{eqnarray}
+{ Lei de Fokkinga}
+< wc_w, id > = cata ( split ( either (h1,h2) , either (k1, k2) ) ) 
+{ Lei da Troca}
+< wc_w, id> = cata ( either (split  (h1,k1) , split (h2,k2) ) )
+\end{eqnarray}
+O worker então vai ser igual à cata ( either (split  (h1,k1) , split (h2,k2) ) ), produzindo assim o tuplo (Int, String)
+
+O wrapper vai ser aplicar a função pi1 retirar o Int pretendido. Durante a compilação houve erros entre os tipos Int e Integer , para a resolução destes problemas, utilizamos a função pré-definida “fromIntegral” para uniformização dos tipos.
+
 \subsection*{Problema 3}
 
 \begin{code}
 inX :: Either u (i, (X u i, X u i)) -> X u i
-inX = either XLeaf (myUnc . flatr) 
-     where
-          myUnc (a,b,c) = Node a b c
-
+inX = either XLeaf (uncurry(uncurry Node) . assocl)  
+     
 outX (XLeaf u) = Left u
 outX (Node i l r) = Right(i,(l,r))
 
