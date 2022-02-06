@@ -197,10 +197,10 @@ import Test.QuickCheck hiding ((><),choose,collect)
 import qualified Test.QuickCheck as QuickCheck
 import System.Posix (DL(Null))
 import GHC.Float.RealFracMethods (floorFloatInt)
-import Control.Arrow (Arrow(first))
--- import PPC.Regs (toc)
--- import Graphics.Gloss
--- import Graphics.Gloss.Interface.Pure.Game
+import Control.Arrow (Arrow(first), ArrowChoice (right))
+import PPC.Regs (toc)
+--import Graphics.Gloss
+--import Graphics.Gloss.Interface.Pure.Game
 
 main = undefined
 \end{code}
@@ -1295,19 +1295,53 @@ k1 = nil
 k2 (a,(b,c)) = cons (a,c)
 \end{code}
 
-O modelo worker/wrapper baseia-se em o worker produzir resultados auxiliares, onde depois o wrapper irá fazer o filtro do resultado pretendido. Para a questão , foi idealizado o worker produzir um Tuplo ( Int , String ) de forma que o wrapper irá retirar o Int ( número de palavras) pretendido. 
-Para a produção do tuplo , foi necessário colocar as funções “wc_w” e a função “id”  em recursividade mútua. Para o funcionamento desta recursividade , foi necessário alterar a função “wc_w”.  A mudança foi especificamente na chamada da função “lookahead_sep” , em vez de correr : lookahead_sep  ( string), correr a função id na chamada, tendo como resultado : lookahead_sep( id string).
+O modelo worker/wrapper baseia-se em o worker produzir resultados auxiliares, 
+onde depois o wrapper irá fazer o filtro do resultado pretendido. Para a questão , 
+foi idealizado o worker produzir um Tuplo ( Int , String ) de forma que 
+o wrapper irá retirar o Int ( número de palavras) pretendido. \\
+
+Para a produção do tuplo , foi necessário colocar as funções \emph{wc\_w} e a função \emph{id}  em 
+recursividade mútua. Para o funcionamento desta recursividade , 
+foi necessário alterar a função \emph{wc\_w}.\\  
+
+A mudança foi especificamente na chamada da função \emph{lookahead\_sep} , 
+em vez de correr : \emph{lookahead\_sep (string)}, correr a função id na chamada, 
+tendo como resultado : \emph{lookahead\_sep (id string)}.\\
 
 Segue o desenvolvimento por meio de diagramas:
-\begin{eqnarray}
-{ Lei de Fokkinga}
-< wc_w, id > = cata ( split ( either (h1,h2) , either (k1, k2) ) ) 
-{ Lei da Troca}
-< wc_w, id> = cata ( either (split  (h1,k1) , split (h2,k2) ) )
-\end{eqnarray}
-O worker então vai ser igual à cata ( either (split  (h1,k1) , split (h2,k2) ) ), produzindo assim o tuplo (Int, String)
 
-O wrapper vai ser aplicar a função pi1 retirar o Int pretendido. Durante a compilação houve erros entre os tipos Int e Integer , para a resolução destes problemas, utilizamos a função pré-definida “fromIntegral” para uniformização dos tipos.
+\begin{eqnarray*}
+    \xymatrix@@C=3cm{
+    Char^+ \ar[r]^{Out} \ar[d]_{wc\textunderscore w}
+    & 1+ Char \times Char^+ 
+    \ar[d]^{id+id \times <wc\textunderscore w,id >}\\
+    Int & 1 + Char \times (Int \times Char^+)
+    \ar[l]^{[h1,h2]} \\
+    }
+\end{eqnarray*}
+
+\begin{eqnarray*}
+    \xymatrix@@C=3cm{
+    Char^+ \ar[r]^{Out} \ar[d]_{id}
+    & 1+ Char \times Char^+ 
+    \ar[d]^{id+id \times <wc\textunderscore w,id >}\\
+    Char^+ & 1 + Char \times (Int \times Char^+)
+    \ar[l]^{[k1,k2]} \\
+    }
+\end{eqnarray*}
+
+Lei de Fokkinga:\\
+$<wc_w,id> = cata (split ( either (h1,h2) , either (k1, k2)))$\\
+
+Lei da Troca:\\
+$<wc_w,id> = cata (either(split  (h1,k1) , split (h2,k2)))$\\
+
+Com esse valor de worker se produz assim o tuplo \emph{(Int, String)}
+
+O wrapper vai ser aplicar a função $\pi$1 retirar o Int pretendido. 
+Durante a compilação houve erros entre os tipos Int e Integer , 
+para a resolução destes problemas, utilizamos a função pré-definida \emph{fromIntegral} 
+para uniformização dos tipos.
 
 \subsection*{Problema 3}
 
@@ -1324,6 +1358,36 @@ recX f = baseX id f id
 
 cataX g = g . (recX (cataX g)) . outX
 \end{code}
+
+A criação da biblioteca foi realizada através da análise do diagrama:
+
+\begin{eqnarray*}
+    \xymatrix@@C=3cm{
+    X\:u\:i \ar@@/_1.5pc/[r]_{Out} & 
+    u + (i \times (X\:u\:i \times X\:u\:i)) \ar@@/_1.5pc/[l]_{In}
+    }
+\end{eqnarray*}
+
+\noindent$i \to g$\\
+$X\:u\:i \to h$\\
+$baseX\:f\:g\:h = f + (g \times (h \times h))$\\
+$recX\:f = id + (id \times (f \times f))$\\
+
+Vale a ressalva para resolução do \emph{inX}, onde tivemos que fazer manipulações 
+para chegar à resolução esperada.\\
+
+Esta resolução foi realizada por passos:\\
+
+\noindent1º : Análise do tipo input e output \emph{inX = ( Either u (i, (X u i, X u i)) $\to$ X u i)}\\
+2º: Análise do tipo \emph{data X u i}\\
+3º: Resolução da 1ª parte do \emph{either do inX = either XLeaf ...}\\
+4º: Resolução da 2ª parte do either do \emph{inX}, para isso os subpassos:\\
+	- 4.1 : aplicar assocl nas variáveis \emph{(i , (X u i, X u i))} 
+  transformando em \emph{(( i, X u i ) , X u i )}.\\
+	- 4.2 : aplicar o \emph{uncurry Node} após o \emph{assocl}, saindo de 
+  \emph{((i, X u i ), X u i)} para \emph{Node (i , X u i) X u i}.\\
+	- 4.3: aplicar outra vez o \emph{uncurry} para obter o tipo do \emph{Node}, 
+  e assim chegando a resolução final do \emph{inX = either XLeaf uncurry(uncurry Node) . assocl)}\\
 
 Inserir a partir daqui o resto da resolução deste problema:
 
@@ -1345,9 +1409,9 @@ Definiu-se então o gene como agrupamento de pares.\\
 \begin{code}
 markMap :: [Pos] -> Map -> Map
 markMap l = cataList (either (const id) f2) (pairL l) where
-  f2 = mySub . sp
+  f2 = uncurry(uncurry mySub) . sp
   sp = split (uncurry toCell) p1 >< id
-  mySub ((c,(x,y)), g) m 
+  mySub c (x,y) g m 
           | (m !! y) !! x == Blocked = g m
           |otherwise = subst (subst c x (g m !! y)) y (g m)  
 \end{code}
@@ -1381,10 +1445,21 @@ com as mesmas e "marcar" no mapa de acordo com a posição dada. Foi feito da se
     }
 \end{eqnarray*}
 
-Finalmente, foi criado a função auxiliar \emph{mySub} que dado este tuplo com esses tipos e um mapa
+Finalmente, foi criado a função auxiliar \emph{mySub} que dado uma \emph{Cell}, 
+uma posição, a função \emph{g} e um mapa
 como argumentos, devolverá o resultado desejado com auxílio da função \emph{subst} fornecida.
 Esta função também leva em conta se uma \emph{Cell} está \emph{Blocked} garantindo percorrer
-em apenas caminhos livres.\\
+em apenas caminhos livres.
+
+Entretanto, ainda é preciso extrair os valores do tuplo para a função ser feita.
+Para isso, optou-se pelo uso de \emph{uncurry(uuncurry mySub)} que ficou-se então:
+
+\begin{eqnarray*}
+    \xymatrix@@C=4 cm{
+    ((Cell,Pos),g)) \ar[r]^{uncurry(uncurry\:mySub)} & 
+    mySub\:Cell\:Pos\:g
+    }
+\end{eqnarray*}
 
 \begin{code}
 scout :: Map -> Pos -> Pos -> Int -> [[Pos]]
